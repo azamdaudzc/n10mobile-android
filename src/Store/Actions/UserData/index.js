@@ -17,13 +17,12 @@ const checkInQues = async (setQues, token, setLoad) => {
 };
 
 const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQues, setAnsId, setHit) => {
-    // console.log("imageData, qId, ansId, photoId", imageData, qId, ansId, photoId);
     API.post(`user-checkin-image-upload`, imageData, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
     }).then((e) => {
-        console.log("ImageUpload", e?.data);
+        // console.log("ImageUpload", e?.data);
         let imageData = {
             questionId: photoId,
             questionVal: e?.data
@@ -53,7 +52,7 @@ const sendAns = async (formData, token, setLoad, setQues) => {
             "Content-Type": "multipart/form-data"
         }
     }).then((e) => {
-        console.log("sendAns", e?.data)
+        // console.log("sendAns", e?.data)
         if (e?.data?.new_data == "available") {
             checkInQues(setQues, token, setLoad);
             // console.log("available  <====");
@@ -69,4 +68,34 @@ const sendAns = async (formData, token, setLoad, setQues) => {
     });
 };
 
-export { checkInQues, sendAns, ImageUpload };
+const getProgramWeek = (setProgramWeek, token) => {
+    API.get(`get/user/program/weeks`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }).then(e => {
+        setProgramWeek(e?.data)
+    }).catch(err => {
+        console.log("getUseProgram error", err);
+    });
+};
+
+const getProgramWeekDays = (currId, lastId, setDay, token) => {
+    let data = {
+        week_id: currId,
+        last_week_id: lastId
+    }
+    API.post(`get/user/program/days`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }).then(e => {
+        // console.log("getProgramWeekDays", e?.data);
+        setDay(e?.data);
+    }).catch((err) => {
+        console.log("getProgramWeekDays error", err);
+        // console.log("getProgramWeekDays error", err.response.data?.message);
+    });
+};
+
+export { checkInQues, sendAns, ImageUpload, getProgramWeek, getProgramWeekDays };

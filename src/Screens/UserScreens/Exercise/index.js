@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+    FlatList,
+    Image,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import DateView from "../../../Components/DateView";
 import HomeHeader from "../../../Components/HomeHeader";
 import UserHeader from "../../../Components/UserHeader";
@@ -15,29 +21,45 @@ import SetData from "../../../Constants/SetData";
 import styles from "./styles";
 import COLORS from "../../../Constants/COLORS";
 import { backExercise } from "../../../Constants/Images";
+import { useSelector } from "react-redux";
+import { getProgramWeek, getProgramWeekDays } from "../../../Store/Actions/UserData";
+import { useIsFocused } from "@react-navigation/native";
+import DayCard from "../../../Components/DayCard";
 
 const Exercise = () => {
+
+    const focus = useIsFocused();
     const [ques, setQues] = useState(0);
+    const [programWeek, setProgramWeek] = useState('');
+    const [day, setDay] = useState('');
+
+    const AuthState = useSelector(state => {
+        return state?.AuthReducer;
+    });
+
+    let token = AuthState?.TokenId;
 
     const update = () => {
         setQues((prev) => prev + 1);
     };
 
-    const renderWeek = ({ item }) => {
+    const renderWeek = ({ item, index }) => {
         return (
             <>
-                <TouchableOpacity onPress={update}>
-                    <WeekCard day={item?.week} />
+                <TouchableOpacity onPress={() => getDay(item?.id, index)}>
+                    <WeekCard day={"Week " + item?.week_no} />
                 </TouchableOpacity>
             </>
         );
     };
 
     const renderDay = ({ item }) => {
+
+        // console.log("renderDay", item);
         return (
             <>
                 <TouchableOpacity onPress={update}>
-                    <WeekCard day={item?.day} />
+                    <DayCard day={item} />
                 </TouchableOpacity>
             </>
         );
@@ -79,6 +101,19 @@ const Exercise = () => {
         );
     };
 
+    const getDay = (currId, index) => {
+        let lastId = programWeek?.program_weeks[index - 1]?.id == undefined ? 0 : programWeek?.program_weeks[index - 1]?.id;
+        setQues(1);
+        getProgramWeekDays(currId, lastId, setDay, token);
+    };
+
+    useEffect(() => {
+        getProgramWeek(setProgramWeek, token);
+        setQues(0);
+    }, []);
+
+    // console.log("day", day);
+
     return (
         <>
             <View style={styles.container}>
@@ -91,12 +126,12 @@ const Exercise = () => {
                             <UserHeader type={1} comp={0} />
                             <DateView title={"ALL WEEKS WORKOUTS"} type={0} />
                             <FlatList
-                                data={WeekData}
-                                renderItem={renderWeek}
+                                data={programWeek?.program_weeks}
+                                renderItem={(item, index) => renderWeek(item, index)}
                                 keyExtractor={(item) => item.id}
-                                inverted={true}
+                                // inverted={true}
                                 showsVerticalScrollIndicator={false}
-                                initialScrollIndex={0}
+                            // initialScrollIndex={0}
                             />
                         </>
                     ) : null
@@ -107,34 +142,36 @@ const Exercise = () => {
                             <UserHeader type={0} comp={0} />
                             <DateView title={"WEEK 10  EXERCISE"} type={1} setQues={setQues} />
                             <FlatList
-                                data={DayData}
+                                data={day?.week_days}
                                 renderItem={renderDay}
                                 keyExtractor={(item) => item.id}
                                 showsVerticalScrollIndicator={false}
                             />
                         </>
-                    ) : null}
-                {ques === 2 ? (
-                    <>
-                        <UserHeader type={0} comp={0} />
-                        <DateView
-                            title={"WORKOUTS: WEEK 10-DAY 1"}
-                            type={0}
-                            setQues={setQues}
-                        />
-                        <View style={styles.nutrition}>
-                            <Text style={{ color: COLORS.white, alignSelf: "center" }}>
-                                EXERCISES
-                            </Text>
-                        </View>
-                        <FlatList
-                            data={ExerciseData}
-                            renderItem={renderExercise}
-                            keyExtractor={(item) => item.id}
-                            showsVerticalScrollIndicator={false}
-                        />
-                    </>
-                ) : null
+                    ) : null
+                }
+                {
+                    ques === 2 ? (
+                        <>
+                            <UserHeader type={0} comp={0} />
+                            <DateView
+                                title={"WORKOUTS: WEEK 10-DAY 1"}
+                                type={1}
+                                setQues={setQues}
+                            />
+                            <View style={styles.nutrition}>
+                                <Text style={{ color: COLORS.white, alignSelf: "center" }}>
+                                    EXERCISES
+                                </Text>
+                            </View>
+                            <FlatList
+                                data={ExerciseData}
+                                renderItem={renderExercise}
+                                keyExtractor={(item) => item.id}
+                                showsVerticalScrollIndicator={false}
+                            />
+                        </>
+                    ) : null
                 }
                 {
                     ques === 3 ? (

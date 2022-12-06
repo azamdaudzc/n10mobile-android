@@ -28,12 +28,12 @@ const UserHeader = ({ type, comp }) => {
             <View style={styles.contaier}>
                 <View style={styles.row}>
                     <View style={{ flexDirection: "row" }}>
-                        <TouchableOpacity onPress={modalView}>
+                        {/* <TouchableOpacity onPress={modalView}>
                             <Image
                                 source={list}
                                 style={styles.menu}
                             />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <View style={styles.personView}>
                             <Image
                                 source={person}
@@ -55,9 +55,8 @@ const UserHeader = ({ type, comp }) => {
                                     </Text>
                                 </TouchableOpacity>
                             </>
-                        ) : (
-                            null
-                        )
+                        ) : null
+
                     }
                     {
                         comp === 1 ? (
@@ -66,14 +65,11 @@ const UserHeader = ({ type, comp }) => {
                                     <Text style={styles.comp}>COMPLETE</Text>
                                 </TouchableOpacity>
                             </>
-                        ) : (
-                            null
-                        )
+                        ) : null
+
                     }
                 </View>
-                {/* <View style={{ height: "50%" }}> */}
                 <UserModal setShow={setShow} show={show} />
-                {/* </View> */}
             </View>
         </>
     );

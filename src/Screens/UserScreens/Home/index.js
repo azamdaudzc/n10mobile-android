@@ -53,8 +53,6 @@ const Home = () => {
         };
     };
 
-    // console.log("asyncVal", asyncVal);
-
     useEffect(() => {
         getData();
     }, [focus]);

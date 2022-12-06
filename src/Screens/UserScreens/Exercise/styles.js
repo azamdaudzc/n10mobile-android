@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     container: {
         marginBottom: 100,
-        height: "100%"
+        // height: "100%"
     }
 });
 

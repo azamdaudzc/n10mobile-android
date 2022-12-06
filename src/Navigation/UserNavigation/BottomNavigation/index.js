@@ -19,11 +19,11 @@ const BottomNavigation = () => {
         tabBarInactiveTintColor: COLORS.white,
         tabBarShowLabel: false,
         tabBarIconStyle: {
-            paddingBottom: 0,
+            paddingBottom: 0
         },
         tabBarStyle: {
             position: 'absolute',
-            height: 70,
+            height: 60,
             elevation: 24,
             borderTopWidth: 0,
             backgroundColor: COLORS.grey
@@ -48,12 +48,13 @@ const BottomNavigation = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <>
-                                    {!focused ?
-                                        <View style={styles.View}>
-                                            <ActiveIcon img={square} />
-                                        </View>
-                                        :
-                                        <UnActiveIcon img={square} />
+                                    {
+                                        !focused ?
+                                            <View style={styles.View}>
+                                                <ActiveIcon img={square} />
+                                            </View>
+                                            :
+                                            <UnActiveIcon img={square} />
                                     }
                                 </>
                             );
@@ -67,12 +68,13 @@ const BottomNavigation = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <>
-                                    {!focused ?
-                                        <View style={styles.View}>
-                                            <ActiveIcon img={exerciseIcon} />
-                                        </View>
-                                        :
-                                        <UnActiveIcon img={exerciseIcon} />
+                                    {
+                                        !focused ?
+                                            <View style={styles.View}>
+                                                <ActiveIcon img={exerciseIcon} />
+                                            </View>
+                                            :
+                                            <UnActiveIcon img={exerciseIcon} />
                                     }
                                 </>
                             );
@@ -86,12 +88,13 @@ const BottomNavigation = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <>
-                                    {!focused ?
-                                        <View style={styles.View}>
-                                            <ActiveIcon img={appleIcon} />
-                                        </View>
-                                        :
-                                        <UnActiveIcon img={appleIcon} />
+                                    {
+                                        !focused ?
+                                            <View style={styles.View}>
+                                                <ActiveIcon img={appleIcon} />
+                                            </View>
+                                            :
+                                            <UnActiveIcon img={appleIcon} />
                                     }
                                 </>
                             );
@@ -105,12 +108,13 @@ const BottomNavigation = () => {
                         tabBarIcon: ({ focused }) => {
                             return (
                                 <>
-                                    {!focused ?
-                                        <View style={styles.View}>
-                                            <ActiveIcon img={folderIcon} />
-                                        </View>
-                                        :
-                                        <UnActiveIcon img={folderIcon} />
+                                    {
+                                        !focused ?
+                                            <View style={styles.View}>
+                                                <ActiveIcon img={folderIcon} />
+                                            </View>
+                                            :
+                                            <UnActiveIcon img={folderIcon} />
                                     }
                                 </>
                             );
@@ -129,7 +133,7 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         tintColor: COLORS.white,
-        borderRightWidth: 1, 
+        borderRightWidth: 1,
     },
     UnActiveImage: {
         height: 30,
@@ -138,6 +142,6 @@ const styles = StyleSheet.create({
     },
     View: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 });

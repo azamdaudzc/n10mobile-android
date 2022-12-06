@@ -15,7 +15,7 @@ import { downArray } from "../../../Constants/Images";
 
 const Composition = () => {
     const [comp, setComp] = useState(0);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date()?.toLocaleDateString());
     const [open, setOpen] = useState(false);
     // const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -102,7 +102,7 @@ const Composition = () => {
                                         }}
                                     >
                                         <Text style={styles.dateText}>
-                                            {date?.toLocaleDateString()}
+                                            {date}
                                         </Text>
                                         <Image
                                             source={downArray}
@@ -152,13 +152,14 @@ const Composition = () => {
                             open={open}
                             date={date}
                             selectorStartingYear={2020}
-                            onConfirm={(date) => {
-                                setOpen(false);
-                                setDate(date);
-                            }}
-                            onCancel={() => {
-                                setOpen(false);
-                            }}
+                            // onConfirm={(date) => {
+                            //     setOpen(false);
+                            //     setDate(date);
+                            // }}
+                            onSelectedChange={e => setDate(e)}
+                        // onCancel={() => {
+                        //     setOpen(false);
+                        // }}
                         />
                         {/* <DatePicker
             onSelectedChange={(date) => setSelectedDate(date)}

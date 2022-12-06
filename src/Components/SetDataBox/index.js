@@ -40,9 +40,9 @@ const SetDataBox = ({ title, weight, reps, rpes }) => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.upload}>
+                {/* <TouchableOpacity style={styles.upload}>
                     <Text style={styles.uploadText}>Upload Video</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </>
     );

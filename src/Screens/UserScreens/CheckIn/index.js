@@ -324,141 +324,15 @@ const CheckIn = () => {
                         </>
                     )
                 }
-                {/* <TouchableOpacity style={styles.sendAns} onPress={send}>
-                    <Text style={{ alignSelf: "center" }}>Send</Text>
-                </TouchableOpacity> */}
                 {/* <TouchableOpacity style={styles.yesBtn}>
-          <Text style={styles.yesText}>Yes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.yesBtn}>
-          <Text style={styles.yesText}>No</Text>
-        </TouchableOpacity> */}
+                        <Text style={styles.yesText}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.yesBtn}>
+                        <Text style={styles.yesText}>No</Text>
+                    </TouchableOpacity> */}
             </View>
         </>
     );
 };
-
-// const CheckIn = () => {
-
-//     const [show, setShow] = useState(false);
-
-//     const next = () => {
-//         console.log("next")
-//     };
-
-//     const previous = () => {
-//         console.log("previous")
-//     };
-
-//     const submit = () => {
-//         console.log('Submit')
-//     };
-
-//     return (
-//         <>
-//             <View style={styles.container}>
-//                 <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
-//                     <HomeHeader />
-//                 </View>
-//                 <UserHeader type={0} />
-//                 <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
-//                 <MultiSteps
-//                     containerButtonStyle={{
-//                         display: 'flex',
-//                         flexDirection: 'row',
-//                         justifyContent: 'flex-end',
-//                         paddingLeft: 10,
-//                         paddingRight: 30,
-//                     }}
-//                     onMoveNext={next}
-//                     onMovePrevious={previous}
-//                     onSubmit={submit}
-//                 >
-//                     {
-//                         StepFormData?.map((val, i) => {
-//                             let opt = val?.options != null ? JSON.parse(val?.options) : null;
-//                             let type = val?.input_type;
-//                             let place = val?.placeholder;
-//                             // console.log("StepFormData", val);
-//                             return (
-//                                 <View key={i}>
-//                                     <View style={styles.quesView}>
-//                                         <Text style={styles.quesQuestion}>{val?.question}</Text>
-//                                     </View>
-//                                     {
-//                                         type === "select" ? (
-//                                             <>
-//                                                 {
-//                                                     opt.map((v, i) => {
-//                                                         // console.log("v", v);
-//                                                         return (
-//                                                             <View
-//                                                                 key={i}
-//                                                                 style={{ width: "80%", alignSelf: "center" }}
-//                                                             >
-//                                                                 <BouncyCheckbox
-//                                                                     size={20}
-//                                                                     fillColor={COLORS.mehron}
-//                                                                     unfillColor={COLORS.white}
-//                                                                     // disableBuiltInState
-//                                                                     // isChecked={isItemIsSelected(val?.id, v?.question_value)}
-//                                                                     text={v?.question_label}
-//                                                                     style={{
-//                                                                         marginTop: 10,
-//                                                                         width: "100%"
-//                                                                     }}
-//                                                                     innerIconStyle={{ borderWidth: 2 }}
-//                                                                     onPress={() => {
-//                                                                         setingVar(
-//                                                                             val?.id,
-//                                                                             v?.question_value
-//                                                                         );
-//                                                                     }}
-//                                                                     textStyle={{
-//                                                                         textDecorationLine: "none"
-//                                                                     }}
-//                                                                 />
-//                                                             </View>
-//                                                         );
-//                                                     })
-//                                                 }
-//                                             </>
-//                                         ) : (
-//                                             null
-//                                         )
-//                                     }
-//                                     {
-//                                         type === "number" ? (
-//                                             <>
-//                                                 <View style={styles.ansView}>
-//                                                     <TextInput
-//                                                         value={ans1}
-//                                                         onChangeText={setAns1}
-//                                                         // onChangeText={(func) => { ques.checkin_question_inputs =}}
-//                                                         placeholder={place}
-//                                                         style={styles.ansInput}
-//                                                         onChange={() => {
-//                                                             setingVar(
-//                                                                 val?.id,
-//                                                                 ans1
-//                                                                 // v?.question_value
-//                                                             );
-//                                                         }}
-//                                                     />
-//                                                 </View>
-//                                             </>
-//                                         ) : (
-//                                             null
-//                                         )
-//                                     }
-//                                 </View>
-//                             )
-//                         })
-//                     }
-//                 </MultiSteps>
-//             </View >
-//         </>
-//     );
-// };
 
 export default CheckIn;
