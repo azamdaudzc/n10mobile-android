@@ -4,12 +4,11 @@ const checkInQues = async (setQues, token, setLoad) => {
     API.get(`get/checkin-questions`, {
         headers: {
             Authorization: `Bearer ${token}`
-        }
+        },
     }).then((e) => {
         if (e?.status === 200) {
             setQues(e?.data);
             setLoad(false);
-            // console.log("checkInQues  ====>");
         };
     }).catch((err) => {
         console.log("checkInQues error", err.response.data?.message);
@@ -20,7 +19,7 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
     API.post(`user-checkin-image-upload`, imageData, {
         headers: {
             Authorization: `Bearer ${token}`,
-        }
+        },
     }).then((e) => {
         // console.log("ImageUpload", e?.data);
         let imageData = {
@@ -50,7 +49,7 @@ const sendAns = async (formData, token, setLoad, setQues) => {
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data"
-        }
+        },
     }).then((e) => {
         // console.log("sendAns", e?.data)
         if (e?.data?.new_data == "available") {
@@ -72,11 +71,11 @@ const getProgramWeek = (setProgramWeek, token) => {
     API.get(`get/user/program/weeks`, {
         headers: {
             Authorization: `Bearer ${token}`,
-        }
+        },
     }).then(e => {
-        setProgramWeek(e?.data)
+        setProgramWeek(e?.data);
     }).catch(err => {
-        console.log("getUseProgram error", err);
+        console.log("getUseProgram error", err.response.data?.message);
     });
 };
 
@@ -84,11 +83,11 @@ const getProgramWeekDays = (currId, lastId, setDay, token) => {
     let data = {
         week_id: currId,
         last_week_id: lastId
-    }
+    };
     API.post(`get/user/program/days`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
-        }
+        },
     }).then(e => {
         // console.log("getProgramWeekDays", e?.data);
         setDay(e?.data);
@@ -98,4 +97,53 @@ const getProgramWeekDays = (currId, lastId, setDay, token) => {
     });
 };
 
-export { checkInQues, sendAns, ImageUpload, getProgramWeek, getProgramWeekDays };
+const programDayInfo = (date, dayId, lastWeek, setDayEx, token) => {
+    let data = {
+        last_week_id: lastWeek,
+        date: date,
+        day_id: dayId
+    };
+    API.post(`get/user/program/day/info`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        setDayEx(e?.data);
+    }).catch((err) => {
+        console.log("programDayInfo error", err);
+        // console.log("programDayInfo error", err.response.data?.message);
+    });
+};
+
+const getExerciseSets = (dayId, ExId, lastWeek, setExercise, token) => {
+    let data = {
+        last_week_id: lastWeek,
+        day_id: dayId,
+        exercise_id: ExId
+    };
+    API.post(`get/user/program/day/exercisesets`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        setExercise(e?.data);
+    }).catch((err) => {
+        console.log("getExerciseSets error", err);
+        console.log("getExerciseSets error", err.response.data?.message);
+    });
+};
+
+const postAnswer = () => {
+
+}
+
+export {
+    checkInQues,
+    sendAns,
+    ImageUpload,
+    getProgramWeek,
+    getProgramWeekDays,
+    programDayInfo,
+    getExerciseSets,
+    postAnswer
+};

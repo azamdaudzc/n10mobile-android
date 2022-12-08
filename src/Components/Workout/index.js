@@ -1,18 +1,22 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import COLORS from "../../Constants/COLORS";
+import { workImg } from "../../Constants/Images";
+import Skip from "../Skip";
 
 const Workout = () => {
     return (
         <>
             <View style={styles.container}>
                 <Image
-                    source={require("../../Assets/workoutImg.png")}
+                    source={workImg}
                     style={styles.workoutImg}
                 />
                 <Text style={styles.workTitle}>Workout</Text>
                 <Text style={styles.workDetail}>
                     Create your workout & diet plan to stay fit
                 </Text>
+                <Skip />
             </View>
         </>
     );
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     },
     workTitle: {
         fontWeight: "bold",
-        color: "#710000",
+        color: COLORS.mehron,
         fontSize: 30
     },
     workoutImg: {

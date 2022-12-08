@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
     getText: {
-        color: "#FFF",
+        color: COLORS.white,
         alignSelf: "center",
         fontWeight: "bold"
     },
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         borderRadius: 20,
         height: 40,
-        backgroundColor: "#710000",
+        backgroundColor: COLORS.mehron,
         justifyContent: "center"
     },
     detail: {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     },
     N10: {
         marginTop: 20,
-        color: "#710000",
+        color: COLORS.mehron,
         alignSelf: "center",
         fontSize: 25,
         fontWeight: "bold"
@@ -40,13 +41,14 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         width: 50,
         height: 50,
-        tintColor: "#710000",
+        tintColor: COLORS.mehron,
         alignSelf: "center"
     },
     container: {
         flex: 1,
         justifyContent: "center",
-        alignSelf: "center"
+        alignSelf: "center",
+        width: "90%"
     }
 });
 

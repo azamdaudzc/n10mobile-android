@@ -1,9 +1,18 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { N10logo, welcomeImg } from "../../../Constants/Images";
 import styles from "./styles";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Welcome = () => {
+
+    const navigation = useNavigation();
+
+    const start = async () => {
+        navigation.navigate("LoginScreen");
+    };
+
     return (
         <>
             <View style={styles.container}>
@@ -19,7 +28,7 @@ const Welcome = () => {
                     source={welcomeImg}
                     style={styles.welcomeImg}
                 />
-                <TouchableOpacity style={styles.getBtn}>
+                <TouchableOpacity style={styles.getBtn} onPress={start}>
                     <Text style={styles.getText}>Get Started</Text>
                 </TouchableOpacity>
             </View>

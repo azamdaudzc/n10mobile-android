@@ -175,9 +175,9 @@ const CheckIn = () => {
     return (
         <>
             <View style={styles.container}>
-                <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
+                {/* <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
                     <HomeHeader />
-                </View>
+                </View> */}
                 <UserHeader type={0} />
                 {
                     load == true ? (

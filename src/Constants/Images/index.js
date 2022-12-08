@@ -22,8 +22,16 @@ const folderIcon = require("../../Assets/folder.png");
 const upload = require("../../Assets/upload.png");
 const tick = require("../../Assets/tick.png");
 const welcomeImg = require("../../Assets/welcomeImg.png");
+const timeImg = require("../../Assets/timeImg.png");
+const workImg = require("../../Assets/workoutImg.png");
+const trackImg = require("../../Assets/trackImg.png");
+const trainerImg = require("../../Assets/trainer.png");
 
 export {
+    trainerImg,
+    trackImg,
+    workImg,
+    timeImg,
     welcomeImg,
     tick,
     upload,

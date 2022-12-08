@@ -23,10 +23,11 @@ const App = () => {
           <SafeAreaView style={{ flex: 1 }}>
             {/* <KeyboardAvoidingView style={{ flex: 1 }}> */}
             {/* <StatusBar translucent backgroundColor={"transparent"} barStyle={'dark-content'} /> */}
-            {show == true ?
-              <Splash />
-              :
-              <Navigation />
+            {
+              show == true ?
+                <Splash />
+                :
+                <Navigation />
             }
             {/* </KeyboardAvoidingView> */}
           </SafeAreaView>

@@ -16,11 +16,13 @@ const Navigation = () => {
     return (
         <>
             <NavigationContainer>
-                {AuthState?.LoginUser ? (
-                    <UserNavigation routeName={routeName} />
-                ) : (
-                    <AuthNavigation routeName={routeName} />
-                )}
+                {
+                    AuthState?.LoginUser ? (
+                        <UserNavigation routeName={routeName} />
+                    ) : (
+                        <AuthNavigation routeName={routeName} />
+                    )
+                }
             </NavigationContainer>
         </>
     );

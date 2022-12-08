@@ -1,5 +1,8 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import COLORS from "../../Constants/COLORS";
+import { trackImg } from "../../Constants/Images";
+import Skip from "../Skip";
 
 const Track = () => {
     return (
@@ -8,9 +11,10 @@ const Track = () => {
                 <Text style={styles.title}>Track</Text>
                 <Text style={styles.detail}>Track your workout & diet activity</Text>
                 <Image
-                    source={require("../../Assets/trackImg.png")}
+                    source={trackImg}
                     style={styles.trackImg}
                 />
+                <Skip />
             </View>
         </>
     );
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: "bold",
-        color: "#710000",
+        color: COLORS.mehron,
         fontSize: 30
     },
     container: {

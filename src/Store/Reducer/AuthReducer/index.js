@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     LoginUser: false,
     UserDetail: [],
-    TokenId: []
+    TokenId: [],
+    first: false
 };
 
 export const AuthReducer = createSlice({
@@ -21,9 +22,12 @@ export const AuthReducer = createSlice({
         },
         LogOut: (state, action) => {
             (state.LoginUser = false), (state.UserDetail = []), (state.TokenId = []);
-        }
+        },
+        first: (state, action) => {
+            state.first = action.payload;
+        },
     }
 });
 
-export const { LoginUser, UserDetail, TokenId, LogOut } = AuthReducer.actions;
+export const { LoginUser, UserDetail, TokenId, LogOut, first } = AuthReducer.actions;
 export default AuthReducer.reducer;

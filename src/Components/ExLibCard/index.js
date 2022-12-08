@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import COLORS from "../../Constants/COLORS";
 
 const ExLibCard = ({ image, title }) => {
     return (
@@ -16,7 +17,7 @@ export default ExLibCard;
 
 const styles = StyleSheet.create({
     title: {
-        color: "#710000",
+        color: COLORS.mehron,
         fontWeight: "bold",
         marginLeft: 10,
         fontSize: 18

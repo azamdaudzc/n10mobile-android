@@ -5,8 +5,6 @@ import DayData from '../../Constants/DayData';
 import { leftArrow } from '../../Constants/Images';
 
 const DayCard = ({ day }) => {
-
-    // console.log("DayCard", day);
     return (
         <>
             <View style={styles.shadow}>
@@ -15,12 +13,23 @@ const DayCard = ({ day }) => {
                         <View style={styles.box}>
                             <Text style={styles.n10}>N10</Text>
                         </View>
-                        <Text style={styles.dayText}>{day?.day_title}</Text>
+                        <View>
+                            <Text style={styles.dayText}>{day?.day_title}</Text>
+                            <Text style={styles.dateText}>{day?.date}</Text>
+                            <Text style={styles.dateText}>{day?.status}</Text>
+                        </View>
                     </View>
-                    <Image
-                        source={leftArrow}
-                        style={styles.leftArrow}
-                    />
+                    {
+                        day?.status !== "Rest Day" ? (
+                            <>
+                                <Text style={styles.viewText}>{day?.status == `start` ? "Start" : "View"}</Text>
+                                {/* <Image
+                                    source={leftArrow}
+                                    style={styles.leftArrow}
+                                /> */}
+                            </>
+                        ) : null
+                    }
                 </View>
             </View>
         </>
@@ -30,6 +39,15 @@ const DayCard = ({ day }) => {
 export default DayCard;
 
 const styles = StyleSheet.create({
+    viewText: {
+        color: COLORS.mehron,
+        marginRight: 15
+    },
+    dateText: {
+        fontSize: 10,
+        marginLeft: 10,
+        color: COLORS.black
+    },
     dayText: {
         fontWeight: "bold",
         marginLeft: 10,

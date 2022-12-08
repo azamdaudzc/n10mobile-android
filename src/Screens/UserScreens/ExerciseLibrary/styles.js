@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
     bell: {
@@ -7,26 +8,28 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderRadius: 10,
-        tintColor: "#FFF",
-        backgroundColor: "#710000"
+        tintColor: COLORS.white,
+        backgroundColor: COLORS.mehron
     },
     filter: {
         marginBottom: 10,
         marginTop: 10,
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignSelf: "center",
+        width: "95%"
     },
     filterText: {
         borderWidth: 1,
         height: 40,
         width: "85%",
         backgroundColor: "#ebebeb",
-        color: "#c0c0c0",
+        color: COLORS.black,
         borderColor: "#dedede",
         borderRadius: 10
     },
     nutrition: {
-        backgroundColor: "#710000",
+        backgroundColor: COLORS.mehron,
         height: 40,
         justifyContent: "center"
     },

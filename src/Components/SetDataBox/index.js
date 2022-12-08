@@ -6,18 +6,21 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
+import COLORS from "../../Constants/COLORS";
 
-const SetDataBox = ({ title, weight, reps, rpes }) => {
+const SetDataBox = ({ item, num }) => {
+
+    // console.log("SetDataBox===>", item?.exercise_sets?.rep_min_no);
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{title}</Text>
+                    <Text style={styles.titleText}>SET {num + 1}</Text>
                 </View>
                 <View style={styles.rowData}>
                     <View style={{ width: "20%" }}>
                         <View style={styles.weightView}>
-                            <Text style={styles.weight}>{weight}</Text>
+                            <Text style={styles.weight}>{item?.exercise_sets?.load_text}</Text>
                         </View>
                         <View style={styles.textInput}>
                             <TextInput style={styles.input} />
@@ -25,7 +28,7 @@ const SetDataBox = ({ title, weight, reps, rpes }) => {
                     </View>
                     <View style={{ width: "20%" }}>
                         <View style={styles.weightView}>
-                            <Text style={styles.weight}>{reps}</Text>
+                            <Text style={styles.weight}>{item?.exercise_sets?.rep_min_no}</Text>
                         </View>
                         <View style={styles.textInput}>
                             <TextInput style={styles.input} />
@@ -33,7 +36,7 @@ const SetDataBox = ({ title, weight, reps, rpes }) => {
                     </View>
                     <View style={{ width: "20%" }}>
                         <View style={styles.weightView}>
-                            <Text style={styles.weight}>{rpes}</Text>
+                            <Text style={styles.weight}>{item?.exercise_sets?.rpe_no}</Text>
                         </View>
                         <View style={styles.textInput}>
                             <TextInput style={styles.input} />
@@ -53,11 +56,11 @@ export default SetDataBox;
 const styles = StyleSheet.create({
     uploadText: {
         fontSize: 12,
-        color: "#FFF",
+        color: COLORS.white,
         alignSelf: "center"
     },
     upload: {
-        backgroundColor: "#710000",
+        backgroundColor: COLORS.mehron,
         height: 25,
         width: "30%",
         justifyContent: "center",
@@ -68,9 +71,9 @@ const styles = StyleSheet.create({
     weightView: {
         width: "100%",
         borderWidth: 1,
-        borderColor: "#707070",
+        borderColor: COLORS.grey1,
         borderRadius: 10,
-        backgroundColor: "#f2f1f1",
+        backgroundColor: COLORS.white1,
         height: 30,
         justifyContent: "center",
         alignItems: "center"
@@ -94,10 +97,10 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     titleText: {
-        color: "#FFF"
+        color: COLORS.white
     },
     title: {
-        backgroundColor: "#710000",
+        backgroundColor: COLORS.mehron,
         height: 30,
         justifyContent: "center",
         alignItems: "center",

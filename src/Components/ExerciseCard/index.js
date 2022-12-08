@@ -3,18 +3,18 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import COLORS from "../../Constants/COLORS";
 import { leftArrow } from "../../Constants/Images";
 
-const ExerciseCard = ({ image, title, instructions, rest }) => {
+const ExerciseCard = ({ item }) => {
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.imageView}>
-                    <Image source={image} style={styles.image} />
+                    <Image source={item?.exercise_library?.avatar} style={styles.image} />
                 </View>
                 <View style={styles.titleView}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.inst}>INSTRUCTION</Text>
-                    <Text style={styles.inst}>{instructions}</Text>
-                    <Text style={styles.inst}>Rest {rest}</Text>
+                    <Text style={styles.title}>{item?.exercise_library?.name}</Text>
+                    <Text style={styles.inst}>DESCRIPTION</Text>
+                    <Text style={styles.inst}>{item?.exercise_library?.description}</Text>
+                    {/* <Text style={styles.inst}>Rest rest</Text> */}
                 </View>
                 <TouchableOpacity style={styles.press}>
                     <Image
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: "bold",
-        marginBottom: 5
+        marginBottom: 5,
+        color: COLORS.black
     },
     titleView: {
         alignSelf: "center",

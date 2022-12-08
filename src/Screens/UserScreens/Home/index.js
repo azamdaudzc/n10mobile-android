@@ -1,5 +1,5 @@
-import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
 import { View, Text, FlatList } from "react-native";
 import Box from "../../../Components/Box";
 import DateView from "../../../Components/DateView";
@@ -12,10 +12,13 @@ import NutritionData from "../../../Constants/NutritionData";
 import TrainingData from "../../../Constants/TrainingData";
 import styles from "./styles";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { first } from "../../../Store/Reducer/AuthReducer";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
 
     const focus = useIsFocused();
+    const dispatch = useDispatch();
     const [asyncVal, setAsyncVal] = useState('');
 
     const renderItem = ({ item }) => {
@@ -55,14 +58,15 @@ const Home = () => {
 
     useEffect(() => {
         getData();
+        dispatch(first(true));
     }, [focus]);
 
     return (
         <>
             <View style={styles.container}>
-                <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
+                {/* <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
                     <HomeHeader />
-                </View>
+                </View> */}
                 <UserHeader type={1} />
                 <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
                 <View style={styles.nutrition}>

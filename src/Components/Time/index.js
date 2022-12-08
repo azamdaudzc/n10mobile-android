@@ -1,5 +1,8 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import COLORS from "../../Constants/COLORS";
+import { timeImg } from "../../Constants/Images";
+import Skip from "../Skip";
 
 const Time = () => {
     return (
@@ -10,9 +13,10 @@ const Time = () => {
                     Don't waste your time & start your journey
                 </Text>
                 <Image
-                    source={require("../../Assets/timeImg.png")}
+                    source={timeImg}
                     style={styles.timeImg}
                 />
+                <Skip />
             </View>
         </>
     );
@@ -22,12 +26,11 @@ export default Time;
 
 const styles = StyleSheet.create({
     timeDetail: {
-        // textAlign:"center"
         width: "80%",
         fontSize: 18
     },
     timeText: {
-        color: "#710000",
+        color: COLORS.mehron,
         fontWeight: "bold",
         fontSize: 30
     },
