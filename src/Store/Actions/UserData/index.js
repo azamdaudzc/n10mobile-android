@@ -89,11 +89,9 @@ const getProgramWeekDays = (currId, lastId, setDay, token) => {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
-        // console.log("getProgramWeekDays", e?.data);
         setDay(e?.data);
     }).catch((err) => {
         console.log("getProgramWeekDays error", err);
-        // console.log("getProgramWeekDays error", err.response.data?.message);
     });
 };
 
@@ -111,7 +109,6 @@ const programDayInfo = (date, dayId, lastWeek, setDayEx, token) => {
         setDayEx(e?.data);
     }).catch((err) => {
         console.log("programDayInfo error", err);
-        // console.log("programDayInfo error", err.response.data?.message);
     });
 };
 
@@ -129,15 +126,54 @@ const getExerciseSets = (dayId, ExId, lastWeek, setExercise, token) => {
         setExercise(e?.data);
     }).catch((err) => {
         console.log("getExerciseSets error", err);
-        console.log("getExerciseSets error", err.response.data?.message);
     });
 };
 
 const postAnswer = () => {
+    //     let data = {
+    //         day_id: "",
+    //         w_e_[day_exercise_id]_s_[set_no]: "",
+    //         r_e_[day_exercise_id]_s_[set_no]: "",
+    //         mai_e_[day_exercise_id]_s_[set_no]: ""
+    // }
+    API.post(`user/program/day/store`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        console.log("postAnswer", e?.data);
+    }).catch((err) => {
+        console.log("postAnswer error", err);
+    });
+};
 
-}
+const getNotification = (token) => {
+    API.get(`get/user/notifications`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        console.log("getNotification", e?.data);
+    }).catch((err) => {
+        console.log("getNotification error", err);
+    });
+};
+
+const markNotification = (token) => {
+    API.get(`mark/read/user/notifications`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        console.log("getNotification", e?.data);
+    }).catch((err) => {
+        console.log("getNotification error", err);
+    });
+};
 
 export {
+    markNotification,
+    getNotification,
     checkInQues,
     sendAns,
     ImageUpload,

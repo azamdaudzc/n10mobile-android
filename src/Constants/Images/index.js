@@ -26,8 +26,10 @@ const timeImg = require("../../Assets/timeImg.png");
 const workImg = require("../../Assets/workoutImg.png");
 const trackImg = require("../../Assets/trackImg.png");
 const trainerImg = require("../../Assets/trainer.png");
+const rightArrow = require("../../Assets/rightArrow.png");
 
 export {
+    rightArrow,
     trainerImg,
     trackImg,
     workImg,

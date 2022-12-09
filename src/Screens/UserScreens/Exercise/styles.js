@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    warmCard: {
+        backgroundColor: "red",
+        width: "100%"
+    },
     changeBtn: {
         position: "absolute",
         bottom: 5,

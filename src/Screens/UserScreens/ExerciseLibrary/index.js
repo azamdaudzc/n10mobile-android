@@ -23,9 +23,9 @@ const ExerciseLibrary = () => {
     return (
         <>
             <View style={styles.container}>
-                <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
+                {/* <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
                     <HomeHeader />
-                </View>
+                </View> */}
                 <UserHeader type={1} />
                 <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
                 <View style={styles.nutrition}>

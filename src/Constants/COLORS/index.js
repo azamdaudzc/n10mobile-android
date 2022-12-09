@@ -7,6 +7,8 @@ const white = "#fff";
 const white1 = "#f2f1f1";
 const grey = "#6a6a69";
 const grey1 = "#707070";
+const grey2 = "#9498AA";
+const grey3 = "#EEEEEE";
 const smokeWhite = "#f5f5f5";
 const offWhite = "#d0d0cf";
 
@@ -14,6 +16,8 @@ export default {
     offWhite,
     white1,
     smokeWhite,
+    grey3,
+    grey2,
     grey1,
     grey,
     white,

@@ -30,9 +30,13 @@ import {
     programDayInfo
 } from "../../../Store/Actions/UserData";
 import DayCard from "../../../Components/DayCard";
+import WarmUpCard from "../../../Components/WarmUpCard";
+import WarmUpData from "../../../Constants/WarmUpData";
+import { useIsFocused } from "@react-navigation/native";
 
 const Exercise = () => {
 
+    const focus = useIsFocused();
     const [ques, setQues] = useState(0);
     const [programWeek, setProgramWeek] = useState('');
     const [day, setDay] = useState('');
@@ -49,9 +53,33 @@ const Exercise = () => {
 
     let token = AuthState?.TokenId;
 
-    // const update = () => {
-    //     setQues((prev) => prev + 1);
-    // };
+    const getDay = (currId, index) => {
+        let lastId = programWeek?.program_weeks[index - 1]?.id == undefined ? 0 : programWeek?.program_weeks[index - 1]?.id;
+        setLastWeek(lastId)
+        setQues(1);
+        getProgramWeekDays(currId, lastId, setDay, token);
+    };
+
+    const getDayEx = (date, dayId, title) => {
+        setDayNo(title.toUpperCase());
+        setQues(2);
+        if (dayId !== null) {
+            programDayInfo(date, dayId, lastWeek, setDayEx, token);
+        };
+    };
+
+    const getExercise = (dayId, ExId) => {
+        getExerciseSets(dayId, ExId, lastWeek, setExercise, token);
+        setQues(3);
+    };
+
+    const mapNo = () => {
+        if (exNum.length < exercise?.exercise_sets?.set_no) {
+            for (let i = 0; i <= exercise?.exercise_sets?.set_no - 1; i++) {
+                exNum.push(i);
+            };
+        };
+    };
 
     const renderWeek = ({ item, index }) => {
         return (
@@ -68,17 +96,16 @@ const Exercise = () => {
         );
     };
 
-    const renderDay = ({ item }) => {
+    const renderDay = ({ item, key }) => {
         return (
-            <>
-                <TouchableOpacity
-                    onPress={() => {
-                        getDayEx(item?.date, item?.day_id, item?.day_title);
-                    }}
-                >
-                    <DayCard day={item} />
-                </TouchableOpacity>
-            </>
+            <TouchableOpacity
+                onPress={() => {
+                    getDayEx(item?.date, item?.day_id, item?.day_title);
+                }}
+                key={key}
+            >
+                <DayCard day={item} />
+            </TouchableOpacity>
         );
     };
 
@@ -108,32 +135,12 @@ const Exercise = () => {
     //     );
     // };
 
-    const getDay = (currId, index) => {
-        let lastId = programWeek?.program_weeks[index - 1]?.id == undefined ? 0 : programWeek?.program_weeks[index - 1]?.id;
-        setLastWeek(lastId)
-        setQues(1);
-        getProgramWeekDays(currId, lastId, setDay, token);
-    };
-
-    const getDayEx = (date, dayId, title) => {
-        setDayNo(title.toUpperCase());
-        setQues(2);
-        if (dayId !== null) {
-            programDayInfo(date, dayId, lastWeek, setDayEx, token);
-        };
-    };
-
-    const getExercise = (dayId, ExId) => {
-        getExerciseSets(dayId, ExId, lastWeek, setExercise, token);
-        setQues(3);
-    };
-
-    const mapNo = () => {
-        if (exNum.length !== exercise?.exercise_sets?.set_no) {
-            for (let i = 0; i <= exercise?.exercise_sets?.set_no - 1; i++) {
-                exNum.push(i);
-            };
-        };
+    const renderWarmUp = ({ item }) => {
+        return (
+            <>
+                <WarmUpCard item={item} />
+            </>
+        );
     };
 
     useEffect(() => {
@@ -143,9 +150,9 @@ const Exercise = () => {
 
     useEffect(() => {
         mapNo();
-    }, [exercise]);
+    }, [exercise, focus]);
 
-    // console.log("exercise", exercise);
+    console.log("exNum", exNum);
 
     return (
         <>
@@ -176,7 +183,7 @@ const Exercise = () => {
                             <DateView title={`WEEK ${week} DAYS`} type={1} setQues={setQues} />
                             <FlatList
                                 data={day?.calculated_days}
-                                renderItem={(item) => renderDay(item)}
+                                renderItem={(item, key) => renderDay(item, key)}
                                 keyExtractor={(item) => item.id}
                                 showsVerticalScrollIndicator={false}
                             />
@@ -191,6 +198,25 @@ const Exercise = () => {
                                 title={`WORKOUTS: WEEK ${week}-DAY ${dayNo}`}
                                 type={1}
                                 setQues={setQues}
+                            />
+                            <View style={styles.nutrition}>
+                                <Text style={{ color: COLORS.white, alignSelf: "center" }}>
+                                    WARM UP
+                                </Text>
+                            </View>
+                            <FlatList
+                                data={dayEx?.warmups}
+                                renderItem={(item) => renderWarmUp(item)}
+                                keyExtractor={(item) => item.id}
+                                showsVerticalScrollIndicator={false}
+                                numColumns={2}
+                                columnWrapperStyle={{
+                                    flex: 1,
+                                    width: "90%",
+                                    justifyContent: "space-between",
+                                    alignSelf: "center"
+                                }}
+                                horizontal={false}
                             />
                             <View style={styles.nutrition}>
                                 <Text style={{ color: COLORS.white, alignSelf: "center" }}>
@@ -214,7 +240,7 @@ const Exercise = () => {
                                 <DateView title={`WEEK ${week} - DAY ${dayNo}`} type={1} setQues={setQues} />
                                 <View style={styles.nutrition}>
                                     <Text style={{ color: COLORS.white, alignSelf: "center" }}>
-                                        EXERCISE : BACK
+                                        EXERCISE : {exercise?.exercises?.exercise_library?.exercise_category?.name}
                                     </Text>
                                 </View>
                                 <View style={styles.card}>
@@ -231,7 +257,7 @@ const Exercise = () => {
                                     <View style={styles.ExText}>
                                         <Text style={styles.backText}>Instructions</Text>
                                         <Text style={styles.primary}>Sets X Reps, RPE</Text>
-                                        <Text style={styles.primary}>REST TIME: 5.00</Text>
+                                        <Text style={styles.primary}>REST TIME: {exercise?.exercise_sets?.rest_time}</Text>
                                     </View>
                                     <TouchableOpacity style={styles.changeBtn}>
                                         <Text style={styles.change}>Change Exercise</Text>

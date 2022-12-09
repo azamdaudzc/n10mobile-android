@@ -82,26 +82,6 @@ const BottomNavigation = () => {
                     }}
                 />
                 <Tab.Screen
-                    name={'CompositionScreen'}
-                    component={Composition}
-                    options={{
-                        tabBarIcon: ({ focused }) => {
-                            return (
-                                <>
-                                    {
-                                        !focused ?
-                                            <View style={styles.View}>
-                                                <ActiveIcon img={appleIcon} />
-                                            </View>
-                                            :
-                                            <UnActiveIcon img={appleIcon} />
-                                    }
-                                </>
-                            );
-                        },
-                    }}
-                />
-                <Tab.Screen
                     name={'ExerciseLibraryScreen'}
                     component={ExerciseLibrary}
                     options={{
@@ -115,6 +95,26 @@ const BottomNavigation = () => {
                                             </View>
                                             :
                                             <UnActiveIcon img={folderIcon} />
+                                    }
+                                </>
+                            );
+                        },
+                    }}
+                />
+                <Tab.Screen
+                    name={'NotificationScreen'}
+                    component={Composition}
+                    options={{
+                        tabBarIcon: ({ focused }) => {
+                            return (
+                                <>
+                                    {
+                                        !focused ?
+                                            <View style={styles.View}>
+                                                <ActiveIcon img={appleIcon} />
+                                            </View>
+                                            :
+                                            <UnActiveIcon img={appleIcon} />
                                     }
                                 </>
                             );

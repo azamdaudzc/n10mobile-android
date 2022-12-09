@@ -11,9 +11,9 @@ const UserHeader = ({ type, comp }) => {
     const navigation = useNavigation();
     const [show, setShow] = useState(false);
 
-    const modalView = () => {
-        setShow(true);
-    };
+    // const modalView = () => {
+    //     setShow(true);
+    // };
 
     const check = () => {
         navigation.navigate("CheckInPage");
@@ -22,6 +22,10 @@ const UserHeader = ({ type, comp }) => {
     const AuthState = useSelector(state => {
         return state?.AuthReducer?.UserDetail;
     });
+
+    const profile = () => {
+        navigation.navigate("ProfileScreen");
+    };
 
     return (
         <>
@@ -34,12 +38,14 @@ const UserHeader = ({ type, comp }) => {
                                 style={styles.menu}
                             />
                         </TouchableOpacity> */}
-                        <View style={styles.personView}>
-                            <Image
-                                source={person}
-                                style={styles.person}
-                            />
-                        </View>
+                        <TouchableOpacity onPress={profile}>
+                            <View style={styles.personView}>
+                                <Image
+                                    source={person}
+                                    style={styles.person}
+                                />
+                            </View>
+                        </TouchableOpacity>
                         <View style={styles.nameView}>
                             <Text style={styles.welcome}>Welcome</Text>
                             <Text style={styles.name}>{AuthState?.first_name} {AuthState?.last_name}</Text>
