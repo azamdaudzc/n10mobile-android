@@ -152,7 +152,7 @@ const Exercise = () => {
         mapNo();
     }, [exercise, focus]);
 
-    console.log("exNum", exNum);
+    // console.log("exNum", exNum);
 
     return (
         <>
@@ -171,7 +171,7 @@ const Exercise = () => {
                                 keyExtractor={(item) => item.id}
                                 // inverted={true}
                                 showsVerticalScrollIndicator={false}
-                            // initialScrollIndex={0}
+                                // initialScrollIndex={0}
                             />
                         </>
                     ) : null

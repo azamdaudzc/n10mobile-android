@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import COLORS from "../../../Constants/COLORS"
+import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
     backBtn: {
@@ -13,71 +13,78 @@ const styles = StyleSheet.create({
         height: 20,
         tintColor: COLORS.white
     },
-    pensilView: {
+    eyeBtn: {
+        alignSelf: "flex-end",
         position: "absolute",
-        top: "17%",
-        right: "16%"
-    },
-    pensil: {
-        resizeMode: "contain",
-        width: 60,
-        height: 60,
-    },
-    logoutText: {
-        color: COLORS.white,
-        alignSelf: "center",
-        fontSize: 15,
-        fontWeight: "bold"
-    },
-    logoutBtn: {
-        backgroundColor: COLORS.mehron,
-        width: "80%",
-        height: 50,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignSelf: "center",
-        // marginTop: "15%",
-        position: "absolute",
-        borderRadius: 40,
-        bottom: 40
-    },
-    logout: {
-        resizeMode: "contain",
-        width: 15,
-        height: 15,
-        alignSelf: "center",
-        marginLeft: 10,
-        tintColor: COLORS.white
-    },
-    passView: {
-        flexDirection: "row"
+        bottom: 15,
+        right: 10
     },
     eye: {
         resizeMode: "contain",
         width: 20,
         height: 20,
         tintColor: COLORS.grey1,
-        marginLeft: 10,
     },
-    ageView: {
-        justifyContent: "space-between",
-        flexDirection: "row",
-        marginTop: 40,
-        width: "80%",
-        alignSelf: "center",
-    },
-    clientFields: {
-        color: COLORS.black,
+    doneText: {
+        color: COLORS.white,
         fontSize: 15,
-        fontWeight: "bold"
-    },
-    field: {
-        color: COLORS.grey1
-    },
-    detail: {
-        width: "80%",
+        fontWeight: "bold",
         alignSelf: "center",
-        marginTop: 40
+    },
+    doneBtn: {
+        flexDirection: "row",
+        backgroundColor: COLORS.mehron,
+        width: "90%",
+        alignSelf: "center",
+        marginTop: 20,
+        height: 40,
+        justifyContent: "center",
+        borderRadius: 50,
+        marginBottom: 50
+    },
+    check: {
+        resizeMode: "contain",
+        width: 15,
+        height: 15,
+        alignSelf: "center",
+        marginLeft: 10
+    },
+    passInput: {
+        width: "90%",
+        alignSelf: "center",
+        marginTop: 20,
+        borderWidth: 1,
+        width: "90%",
+        borderRadius: 40,
+        height: 50
+    },
+    emailInput: {
+        width: "90%",
+        alignSelf: "center",
+        marginTop: 20,
+        borderWidth: 1,
+        width: "90%",
+        borderRadius: 40,
+        height: 50
+    },
+    nameInputs: {
+        flexDirection: "row",
+        width: "90%",
+        justifyContent: "space-between",
+        alignSelf: "center",
+        marginTop: 20
+    },
+    nameInput: {
+        marginLeft: 10
+    },
+    nameBorder: {
+        borderWidth: 1,
+        width: "48%",
+        borderRadius: 40,
+        height: 50
+    },
+    names: {
+        marginTop: 60
     },
     image: {
         resizeMode: "contain",
@@ -90,9 +97,6 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 5,
         alignSelf: "center",
-    },
-    names: {
-        marginTop: 60
     },
     profileText: {
         color: COLORS.white,

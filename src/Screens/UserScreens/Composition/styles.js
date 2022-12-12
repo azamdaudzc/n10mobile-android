@@ -2,82 +2,43 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
-    downArrow: {
+    tick: {
         resizeMode: "contain",
-        width: 10,
-        height: 10,
-        // justifyContent: "center"
-        alignSelf: "center",
-        marginLeft: 5,
+        width: 20,
+        height: 20,
         tintColor: COLORS.mehron
     },
-    dateText: {
-        alignSelf: "center",
-        color: COLORS.mehron,
-        fontSize: 12
+    readText: {
+        color: COLORS.mehron
     },
-    progressText: {
-        fontWeight: "bold",
-        alignSelf: "center",
-        marginBottom: 5
-    },
-    progressView: {
-        width: "100%",
-        marginTop: 5
-    },
-    dateTouch: {
-        marginRight: 10,
-        borderWidth: 1,
-        height: 25,
-        width: 90,
-        justifyContent: "center",
-        borderRadius: 5,
-        backgroundColor: "#cccccc",
-        borderColor: "#cccccc",
+    readView: {
+        alignSelf: "flex-end",
+        marginRight: 15,
         flexDirection: "row"
     },
-    selectDate: {
-        marginLeft: 10
+    available: {
+        alignSelf: "center",
+        color: COLORS.black,
+        fontSize: 20,
+        marginTop: 10
     },
-    dateView: {
-        shadowColor: COLORS.black,
-        shadowOffset: {
-            width: 0,
-            height: 9
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 12.35,
-        elevation: 19,
+    profileText: {
+        color: COLORS.white,
+        fontSize: 25,
+        fontWeight: "bold"
+    },
+    head: {
+        backgroundColor: COLORS.mehron,
         width: "100%",
-        marginTop: 10,
-        height: 40,
-        justifyContent: "space-between",
-        flexDirection: "row",
+        height: 80,
+        justifyContent: "center",
         alignItems: "center"
     },
-    updatedText: {
-        color: COLORS.white,
-        alignSelf: "center",
-        fontSize: 12
-    },
-    past: {
-        width: "50%",
-        justifyContent: "center"
-    },
-    btnView: {
-        flexDirection: "row",
-        width: "100%",
-        height: 40
-    },
-    nutrition: {
-        backgroundColor: COLORS.mehron,
-        height: 40,
-        justifyContent: "center",
-        marginBottom: 10
-    },
     container: {
-        flex: 1
-    }
+        justifyContent: "center",
+        alignSelf: "center",
+        width: "100%",
+    },
 });
 
 export default styles;

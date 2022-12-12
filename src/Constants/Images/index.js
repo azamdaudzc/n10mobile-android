@@ -27,8 +27,22 @@ const workImg = require("../../Assets/workoutImg.png");
 const trackImg = require("../../Assets/trackImg.png");
 const trainerImg = require("../../Assets/trainer.png");
 const rightArrow = require("../../Assets/rightArrow.png");
+const profile = require("../../Assets/profile.png");
+const pensil = require("../../Assets/pensil.png");
+const logout = require("../../Assets/logout.png");
+const back = require("../../Assets/back.png");
+const running = require("../../Assets/notificationIcon.png");
+const doubleTick = require("../../Assets/done.png");
+const filter = require("../../Assets/awesome-filter.png");
 
 export {
+    filter,
+    doubleTick,
+    running,
+    back,
+    logout,
+    pensil,
+    profile,
     rightArrow,
     trainerImg,
     trackImg,

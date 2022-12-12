@@ -147,31 +147,50 @@ const postAnswer = () => {
     });
 };
 
-const getNotification = (token) => {
+const getNotification = (setNotification, setRead, setLoad, token) => {
     API.get(`get/user/notifications`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
-        console.log("getNotification", e?.data);
+        setNotification(e?.data);
+        setRead(false);
+        setLoad(false);
     }).catch((err) => {
         console.log("getNotification error", err);
     });
 };
 
-const markNotification = (token) => {
+const markNotification = (setRead, setLoad, token) => {
     API.get(`mark/read/user/notifications`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
-        console.log("getNotification", e?.data);
+        // console.log("getNotification", e?.data);
+        setRead(true);
+        setLoad(false);
     }).catch((err) => {
         console.log("getNotification error", err);
+        setLoad(false);
+    });
+};
+
+const getExerciseLibrary = (setExercises, token) => {
+    API.get(`get/all/exercise/libraries`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        // console.log("getExerciseLibrary", e?.data);
+        setExercises(e?.data);
+    }).catch((err) => {
+        console.log("getExerciseLibrary error", err);
     });
 };
 
 export {
+    getExerciseLibrary,
     markNotification,
     getNotification,
     checkInQues,

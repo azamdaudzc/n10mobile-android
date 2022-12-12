@@ -2,14 +2,20 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
-    bell: {
-        resizeMode: "contain",
-        width: 40,
-        height: 40,
+    filterBack: {
+        backgroundColor: COLORS.mehron,
         borderWidth: 1,
         borderRadius: 10,
+        width: 40,
+        height: 40
+    },
+    filterIcon: {
+        resizeMode: "contain",
+        width: 30,
+        height: 30,
         tintColor: COLORS.white,
-        backgroundColor: COLORS.mehron
+        alignSelf: "center",
+        marginTop: 4
     },
     filter: {
         marginBottom: 10,

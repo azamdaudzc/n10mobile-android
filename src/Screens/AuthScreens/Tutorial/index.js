@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
 import Time from '../../../Components/Time';
 import Track from '../../../Components/Track';
 import Trainer from '../../../Components/Trainer';

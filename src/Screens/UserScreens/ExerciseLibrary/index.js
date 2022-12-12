@@ -1,24 +1,42 @@
 import React, { useState } from "react";
-import { FlatList, Image, Text, TextInput, View } from "react-native";
+import { useEffect } from "react";
+import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 import DateView from "../../../Components/DateView";
+import DetailModal from "../../../Components/DetailModal";
 import ExLibCard from "../../../Components/ExLibCard";
 import HomeHeader from "../../../Components/HomeHeader";
 import UserHeader from "../../../Components/UserHeader";
 import COLORS from "../../../Constants/COLORS";
 import ExerciseData from "../../../Constants/ExerciseData";
-import { bell } from "../../../Constants/Images";
+import { filter } from "../../../Constants/Images";
+import { getExerciseLibrary } from "../../../Store/Actions/UserData";
 import styles from "./styles.js";
 
 const ExerciseLibrary = () => {
-    const [filter, setFilter] = useState();
+
+    const [filterData, setFilterData] = useState();
+    const [exercise, setExercises] = useState([]);
+    const [open, setOpen] = useState(false);
+
+    const AuthState = useSelector(state => {
+        return state?.AuthReducer;
+    });
+
+    let token = AuthState?.TokenId;
 
     const renderExercise = ({ item }) => {
+        // console.log("renderExercise", item);
         return (
             <>
-                <ExLibCard image={item?.image} title={item?.title} />
+                <ExLibCard item={item} />
             </>
         );
     };
+
+    useEffect(() => {
+        getExerciseLibrary(setExercises, token);
+    }, []);
 
     return (
         <>
@@ -36,21 +54,24 @@ const ExerciseLibrary = () => {
                 <View style={styles.filter}>
                     <TextInput
                         placeholder={"Search Exercise"}
-                        value={filter}
-                        onChangeText={setFilter}
+                        value={filterData}
+                        onChangeText={setFilterData}
                         style={styles.filterText}
                     />
-                    <Image
-                        source={bell}
-                        style={styles.bell}
-                    />
+                    <View style={styles.filterBack}>
+                        <Image
+                            source={filter}
+                            style={styles.filterIcon}
+                        />
+                    </View>
                 </View>
                 <FlatList
-                    data={ExerciseData}
+                    data={exercise}
                     renderItem={renderExercise}
                     keyExtractor={(item) => item.id}
                 />
             </View>
+            {/* <DetailModal open={open} setOpen={setOpen} title={exercise?.name} /> */}
         </>
     );
 };

@@ -19,8 +19,8 @@ const Login = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
+    const [email, setEmail] = useState("client@client.com");
+    const [pass, setPass] = useState("client");
     const [secure, setSecure] = useState(true);
     const [load, setLoad] = useState(false);
 

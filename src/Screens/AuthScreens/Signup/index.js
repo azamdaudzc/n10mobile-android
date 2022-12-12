@@ -173,7 +173,6 @@ const Signup = () => {
                         </View>
                         <View style={styles.nameView}>
                             <DropDownPicker
-                                // listMode="MODAL"
                                 open={open1}
                                 value={gen}
                                 items={GenderData}
