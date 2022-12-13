@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import {
+    Alert,
     Image,
     Modal,
     ScrollView,
@@ -10,9 +11,25 @@ import {
 } from 'react-native';
 import COLORS from '../../Constants/COLORS';
 import { cancel } from '../../Constants/Images';
-import Swiper from 'react-native-swiper';
+import YoutubePlayer from "react-native-youtube-iframe";
+import Video from 'react-native-video';
 
 const DetailModal = ({ open, setOpen, title, description, video, category, equipment, pattern }) => {
+
+    const [playing, setPlaying] = useState(false);
+    // const videoPlayer = useRef(null);
+    let split = video.split("=");
+
+    let arr = convertStringToArray(video);
+
+    const onStateChange = (state) => {
+        if (state === 'ended') {
+            setPlaying(false);
+        };
+    };
+
+    console.log(arr);
+
     return (
         <>
             <View style={styles.centeredView}>
@@ -29,7 +46,7 @@ const DetailModal = ({ open, setOpen, title, description, video, category, equip
                             <TouchableOpacity style={styles.cancelBtn} onPress={() => setOpen(!open)}>
                                 <Image source={cancel} style={styles.cancel} />
                             </TouchableOpacity>
-                            <ScrollView style={{ width: "100%" }}>
+                            <ScrollView style={{ width: "100%" }} showsVerticalScrollIndicator={false}>
                                 <Text style={styles.title}>{title}</Text>
                                 <View style={styles.line} />
                                 <View style={styles.descriptionView}>
@@ -41,40 +58,22 @@ const DetailModal = ({ open, setOpen, title, description, video, category, equip
                                     <Text style={styles.category}>Exercise Pattern</Text>
                                     <Text style={styles.descriptionText}>{pattern}</Text>
                                 </View>
-                                {/* <Swiper
-                                    style={styles.wrapper}
-                                    showsButtons={false}
-                                    dot={
-                                        <View
-                                            style={{
-                                                backgroundColor: 'rgba(0,0,0,.2)',
-                                                width: 5,
-                                                height: 5,
-                                                borderRadius: 4,
-                                                marginLeft: 3,
-                                                marginRight: 3,
-                                                marginTop: 3,
-                                                marginBottom: "10%"
-                                            }}
-                                        />
-                                    }
-                                    activeDot={
-                                        <View
-                                            style={{
-                                                backgroundColor: COLORS.mehron,
-                                                width: 20,
-                                                height: 8,
-                                                borderRadius: 4,
-                                                marginLeft: 3,
-                                                marginRight: 3,
-                                                marginTop: 3,
-                                                marginBottom: "10%"
-                                            }}
-                                        />
-                                    }
-                                >
-
-                                </Swiper> */}
+                                <View style={{ width: "100%", marginTop: 20 }}>
+                                    <YoutubePlayer
+                                        height={160}
+                                        width={"100%"}
+                                        play={playing}
+                                        videoId={split[1]}
+                                        onChangeState={onStateChange}
+                                    />
+                                    {/* <Video
+                                        source={{ uri: 'https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4' }}
+                                        paused={false}                  // make it start    
+                                        style={styles.backgroundVideo}  // any style you want
+                                        repeat={true}                   // make it a loop
+                                        ref={ref => (videoPlayer.current = ref)}
+                                    /> */}
+                                </View>
                             </ScrollView>
                         </View>
                     </View>
@@ -87,10 +86,15 @@ const DetailModal = ({ open, setOpen, title, description, video, category, equip
 export default DetailModal;
 
 const styles = StyleSheet.create({
+    backgroundVideo: {
+        backgroundColor: "red",
+
+    },
     category: {
         color: COLORS.black,
         marginTop: 10,
-        fontSize: 15
+        fontSize: 15,
+        fontWeight: "bold"
     },
     cancelBtn: {
         position: "absolute",

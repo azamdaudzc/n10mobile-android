@@ -22,7 +22,7 @@ const ExLibCard = ({ item }) => {
                     <Text style={styles.description}>{item?.description}</Text>
                 </View>
             </TouchableOpacity>
-            {/* <View>
+            <View>
                 <DetailModal
                     open={open}
                     setOpen={setOpen}
@@ -33,7 +33,7 @@ const ExLibCard = ({ item }) => {
                     equipment={item?.exercise_equipment?.name}
                     pattern={item?.exercise_movement_pattern?.name}
                 />
-            </View> */}
+            </View>
         </>
     );
 };
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     container: {
         borderWidth: 1,
-        marginBottom: 8,
+        marginBottom: -8,
         height: 70,
         width: "95%",
         flexDirection: "row",

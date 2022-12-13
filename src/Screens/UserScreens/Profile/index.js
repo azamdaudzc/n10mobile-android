@@ -15,6 +15,8 @@ const Profile = () => {
         return state?.AuthReducer?.UserDetail;
     });
 
+    let image = JSON.parse(AuthState?.avatar);
+
     const logoutFunc = () => {
         dispatch(LogOut([]));
     };
@@ -37,8 +39,7 @@ const Profile = () => {
                 </View>
                 <View style={styles.names}>
                     <View style={styles.imageView}>
-                        {/* <Image source={AuthState?.avatar} style={styles.image} />*/}
-                        <Image source={profile} style={styles.image} />
+                        <Image source={{ uri: image?.uri }} style={styles.image} />
                     </View>
                     <View style={styles.detail}>
                         <Text style={styles.field}>Full Name</Text>
@@ -48,10 +49,10 @@ const Profile = () => {
                         <Text style={styles.field}>Email</Text>
                         <Text style={styles.clientFields}>{AuthState?.email}</Text>
                     </View>
-                    {/* <View style={styles.detail}>
+                    <View style={styles.detail}>
                         <Text style={styles.field}>Phone Number</Text>
                         <Text style={styles.clientFields}>{AuthState?.phone}</Text>
-                    </View> */}
+                    </View>
                     <View style={styles.ageView}>
                         <View>
                             <Text style={styles.field}>Age</Text>

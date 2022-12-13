@@ -146,20 +146,15 @@ const Exercise = () => {
     useEffect(() => {
         getProgramWeek(setProgramWeek, token);
         // setQues(0);
-    }, []);
+    }, [focus]);
 
     useEffect(() => {
         mapNo();
     }, [exercise, focus]);
 
-    // console.log("exNum", exNum);
-
     return (
         <>
             <View style={styles.container}>
-                {/* <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
-                    <HomeHeader />
-                </View> */}
                 {
                     ques === 0 ? (
                         <>
@@ -171,7 +166,7 @@ const Exercise = () => {
                                 keyExtractor={(item) => item.id}
                                 // inverted={true}
                                 showsVerticalScrollIndicator={false}
-                                // initialScrollIndex={0}
+                            // initialScrollIndex={0}
                             />
                         </>
                     ) : null

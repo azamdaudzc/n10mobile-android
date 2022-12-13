@@ -1,4 +1,5 @@
 import API from "../../../Constants/AxiosAPI";
+import { UserDetail } from "../../Reducer/AuthReducer";
 
 const checkInQues = async (setQues, token, setLoad) => {
     API.get(`get/checkin-questions`, {
@@ -44,7 +45,6 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
 };
 
 const sendAns = async (formData, token, setLoad, setQues) => {
-    // console.log("token", token);
     API.post(`store/checkin-question-ans`, formData, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -167,7 +167,6 @@ const markNotification = (setRead, setLoad, token) => {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
-        // console.log("getNotification", e?.data);
         setRead(true);
         setLoad(false);
     }).catch((err) => {
@@ -182,14 +181,71 @@ const getExerciseLibrary = (setExercises, token) => {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
-        // console.log("getExerciseLibrary", e?.data);
         setExercises(e?.data);
     }).catch((err) => {
         console.log("getExerciseLibrary error", err);
     });
 };
 
+const updateProfile = (
+    photo,
+    fname,
+    lName,
+    email,
+    age,
+    height,
+    gen,
+    type,
+    pass,
+    num,
+    token,
+    navigation,
+    dispatch,
+    setLoad
+) => {
+    let data = {
+        avatar: photo,
+        first_name: fname,
+        last_name: lName,
+        email: email,
+        password: pass,
+        age: age,
+        gender: gen,
+        height: height,
+        athletic_type: type,
+        phone: num,
+    }
+    API.post(`update/client/profile`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        dispatch(UserDetail(e?.data?.user));
+        setLoad(false);
+        navigation.navigate("ProfileScreen");
+    }).catch((err) => {
+        console.log("updateProfile error", err.response.data?.message);
+    });
+};
+
+const warmUpInfo = (id, setWarmInfo, token) => {
+    let data = {
+        warmup_id: id,
+    };
+    API.post(`get/warmup/info`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        setWarmInfo(e?.data);
+    }).catch((err) => {
+        console.log("warmUpInfo error", err);
+    });
+};
+
 export {
+    warmUpInfo,
+    updateProfile,
     getExerciseLibrary,
     markNotification,
     getNotification,

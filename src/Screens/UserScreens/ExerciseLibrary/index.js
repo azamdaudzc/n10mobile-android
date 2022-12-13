@@ -26,7 +26,6 @@ const ExerciseLibrary = () => {
     let token = AuthState?.TokenId;
 
     const renderExercise = ({ item }) => {
-        // console.log("renderExercise", item);
         return (
             <>
                 <ExLibCard item={item} />

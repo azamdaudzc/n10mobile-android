@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet, View } from 'react-native';
 import COLORS from '../../../Constants/COLORS';
 import Home from '../../../Screens/UserScreens/Home';
-import { appleIcon, exerciseIcon, folderIcon, square } from '../../../Constants/Images';
+import { bell, exerciseIcon, folderIcon, square } from '../../../Constants/Images';
 import Exercise from '../../../Screens/UserScreens/Exercise';
 import Composition from '../../../Screens/UserScreens/Composition';
 import ExerciseLibrary from '../../../Screens/UserScreens/ExerciseLibrary';
@@ -111,10 +111,10 @@ const BottomNavigation = () => {
                                     {
                                         !focused ?
                                             <View style={styles.View}>
-                                                <ActiveIcon img={appleIcon} />
+                                                <ActiveIcon img={bell} />
                                             </View>
                                             :
-                                            <UnActiveIcon img={appleIcon} />
+                                            <UnActiveIcon img={bell} />
                                     }
                                 </>
                             );

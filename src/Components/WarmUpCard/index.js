@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import COLORS from '../../Constants/COLORS';
 import { legExercise, rightArrow } from '../../Constants/Images';
+import { warmUpInfo } from '../../Store/Actions/UserData';
+import DetailModal from '../DetailModal';
 
 const WarmUpCard = ({ item }) => {
+
+    const [open, setOpen] = useState();
+    const [warmInfo, setWarmInfo] = useState([])
+
+    const AuthState = useSelector(state => {
+        return state?.AuthReducer;
+    });
+
+    let token = AuthState?.TokenId;
+
+    console.log("WarmUpCard", warmInfo);
+
+    useEffect(() => {
+        warmUpInfo(item?.id, setWarmInfo, token);
+    }, []);
 
     return (
         <>
@@ -20,6 +39,7 @@ const WarmUpCard = ({ item }) => {
                     </View>
                 </View>
             </View>
+            {/* <DetailModal open={open} setOpen={setOpen} /> */}
         </>
     );
 };

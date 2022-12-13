@@ -33,7 +33,6 @@ const Me = async (setLoad, token, dispatch) => {
         .then((e) => {
             dispatch(UserDetail(e?.data));
             dispatch(LoginUser(true));
-            alert("Login Success");
             setLoad(false);
         })
         .catch((err) => {
@@ -48,13 +47,24 @@ const SignupUser = async (
     pass,
     age,
     height,
+    num,
     gen,
     athleticType,
     navigation
 ) => {
-    await API.post(
-        `auth/register?first_name=${fName}&email=${trimEmail}&password=${pass}&c_password=${pass}&last_name=${lName}&age=${age}&height=${height}&gender=${gen}&athletic_type=${athleticType}`
-    )
+    let data = {
+        first_name: fName,
+        email: trimEmail,
+        password: pass,
+        c_password: pass,
+        last_name: lName,
+        age: age,
+        height: height,
+        gender: gen,
+        athletic_type: athleticType,
+        phone: num
+    };
+    await API.post(`auth/register`, data)
         .then((e) => {
             if (e?.data?.status === "Success") {
                 alert("Account created successfully");

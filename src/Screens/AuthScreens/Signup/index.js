@@ -26,6 +26,7 @@ const Signup = () => {
     const [pass, setPass] = useState();
     const [confirmpass, setConfirmPass] = useState();
     const [age, setAge] = useState();
+    const [num, setNum] = useState();
     const [height, setHeight] = useState();
     const [gen, setGen] = useState();
     const [open, setOpen] = useState(false);
@@ -47,7 +48,8 @@ const Signup = () => {
             age &&
             height &&
             gen &&
-            athleticType
+            athleticType &&
+            num
         ) {
             if (pass === confirmpass) {
                 let trimEmail = email.trim();
@@ -60,6 +62,7 @@ const Signup = () => {
                         pass,
                         age,
                         height,
+                        num,
                         gen,
                         athleticType,
                         navigation
@@ -161,6 +164,14 @@ const Signup = () => {
                                 value={age}
                                 onChangeText={setAge}
                                 placeholder={"Age"}
+                            />
+                        </View>
+                        <View style={styles.nameView}>
+                            <TextInput
+                                style={styles.nameInput}
+                                value={num}
+                                onChangeText={setNum}
+                                placeholder={"Phone Number"}
                             />
                         </View>
                         <View style={styles.nameView}>
