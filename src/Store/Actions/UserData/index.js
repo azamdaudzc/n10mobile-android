@@ -2,7 +2,7 @@ import API from "../../../Constants/AxiosAPI";
 import { UserDetail } from "../../Reducer/AuthReducer";
 
 const checkInQues = async (setQues, token, setLoad) => {
-    API.get(`get/checkin-questions`, {
+    await API.get(`get/checkin-questions`, {
         headers: {
             Authorization: `Bearer ${token}`
         },
@@ -17,7 +17,7 @@ const checkInQues = async (setQues, token, setLoad) => {
 };
 
 const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQues, setAnsId, setHit) => {
-    API.post(`user-checkin-image-upload`, imageData, {
+    await API.post(`user-checkin-image-upload`, imageData, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
 };
 
 const sendAns = async (formData, token, setLoad, setQues) => {
-    API.post(`store/checkin-question-ans`, formData, {
+    await API.post(`store/checkin-question-ans`, formData, {
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data"
@@ -67,8 +67,8 @@ const sendAns = async (formData, token, setLoad, setQues) => {
     });
 };
 
-const getProgramWeek = (setProgramWeek, token) => {
-    API.get(`get/user/program/weeks`, {
+const getProgramWeek = async (setProgramWeek, token) => {
+    await API.get(`get/user/program/weeks`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -79,12 +79,12 @@ const getProgramWeek = (setProgramWeek, token) => {
     });
 };
 
-const getProgramWeekDays = (currId, lastId, setDay, token) => {
+const getProgramWeekDays = async (currId, lastId, setDay, token) => {
     let data = {
         week_id: currId,
         last_week_id: lastId
     };
-    API.post(`get/user/program/days`, data, {
+    await API.post(`get/user/program/days`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -95,13 +95,13 @@ const getProgramWeekDays = (currId, lastId, setDay, token) => {
     });
 };
 
-const programDayInfo = (date, dayId, lastWeek, setDayEx, token) => {
+const programDayInfo = async (date, dayId, lastWeek, setDayEx, token) => {
     let data = {
         last_week_id: lastWeek,
         date: date,
         day_id: dayId
     };
-    API.post(`get/user/program/day/info`, data, {
+    await API.post(`get/user/program/day/info`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -112,31 +112,32 @@ const programDayInfo = (date, dayId, lastWeek, setDayEx, token) => {
     });
 };
 
-const getExerciseSets = (dayId, ExId, lastWeek, setExercise, token) => {
+const getExerciseSets = async (dayId, ExId, lastWeek, setExercise, token) => {
     let data = {
         last_week_id: lastWeek,
         day_id: dayId,
-        exercise_id: ExId
+        exercise_id: ExId,
     };
-    API.post(`get/user/program/day/exercisesets`, data, {
+    // console.log("data", data);
+    await API.post(`get/user/program/day/exercisesets`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
         setExercise(e?.data);
     }).catch((err) => {
-        console.log("getExerciseSets error", err);
+        console.log("getExerciseSets error", err?.response?.data?.message);
     });
 };
 
-const postAnswer = () => {
+const postAnswer = async () => {
     //     let data = {
     //         day_id: "",
     //         w_e_[day_exercise_id]_s_[set_no]: "",
     //         r_e_[day_exercise_id]_s_[set_no]: "",
     //         mai_e_[day_exercise_id]_s_[set_no]: ""
     // }
-    API.post(`user/program/day/store`, data, {
+    await API.post(`user/program/day/store`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -147,8 +148,8 @@ const postAnswer = () => {
     });
 };
 
-const getNotification = (setNotification, setRead, setLoad, token) => {
-    API.get(`get/user/notifications`, {
+const getNotification = async (setNotification, setRead, setLoad, token) => {
+    await API.get(`get/user/notifications`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -161,8 +162,8 @@ const getNotification = (setNotification, setRead, setLoad, token) => {
     });
 };
 
-const markNotification = (setRead, setLoad, token) => {
-    API.get(`mark/read/user/notifications`, {
+const markNotification = async (setRead, setLoad, token) => {
+    await API.get(`mark/read/user/notifications`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -175,8 +176,8 @@ const markNotification = (setRead, setLoad, token) => {
     });
 };
 
-const getExerciseLibrary = (setExercises, token) => {
-    API.get(`get/all/exercise/libraries`, {
+const getExerciseLibrary = async (setExercises, token) => {
+    await API.get(`get/all/exercise/libraries`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -187,7 +188,7 @@ const getExerciseLibrary = (setExercises, token) => {
     });
 };
 
-const updateProfile = (
+const updateProfile = async (
     photo,
     fname,
     lName,
@@ -215,7 +216,7 @@ const updateProfile = (
         athletic_type: type,
         phone: num,
     }
-    API.post(`update/client/profile`, data, {
+    await API.post(`update/client/profile`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -228,11 +229,11 @@ const updateProfile = (
     });
 };
 
-const warmUpInfo = (id, setWarmInfo, token) => {
+const warmUpInfo = async (id, setWarmInfo, token) => {
     let data = {
         warmup_id: id,
     };
-    API.post(`get/warmup/info`, data, {
+    await API.post(`get/warmup/info`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -243,7 +244,20 @@ const warmUpInfo = (id, setWarmInfo, token) => {
     });
 };
 
+const dashboard = async (setDash, token) => {
+    await API.get(`fetch/dashboard`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        setDash(e?.data);
+    }).catch((err) => {
+        console.log("dashboard error", err);
+    });
+};
+
 export {
+    dashboard,
     warmUpInfo,
     updateProfile,
     getExerciseLibrary,

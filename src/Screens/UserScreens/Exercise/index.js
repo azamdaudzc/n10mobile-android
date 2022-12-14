@@ -24,10 +24,10 @@ import COLORS from "../../../Constants/COLORS";
 import { backExercise } from "../../../Constants/Images";
 import { useSelector } from "react-redux";
 import {
-    getExerciseSets,
     getProgramWeek,
     getProgramWeekDays,
-    programDayInfo
+    programDayInfo,
+    getExerciseSets,
 } from "../../../Store/Actions/UserData";
 import DayCard from "../../../Components/DayCard";
 import WarmUpCard from "../../../Components/WarmUpCard";
@@ -38,13 +38,14 @@ const Exercise = () => {
 
     const focus = useIsFocused();
     const [ques, setQues] = useState(0);
-    const [programWeek, setProgramWeek] = useState('');
-    const [day, setDay] = useState('');
-    const [week, setWeek] = useState();
+    const [programWeek, setProgramWeek] = useState([]);
+    const [currWeek, setCurrWeek] = useState();
+    const [lastWeek, setLastWeek] = useState();
+    const [day, setDay] = useState([]);
+    const [dayId, setDayId] = useState();
     const [dayNo, setDayNo] = useState();
-    const [dayEx, setDayEx] = useState('');
-    const [lastWeek, setLastWeek] = useState("");
-    const [exercise, setExercise] = useState('');
+    const [dayEx, setDayEx] = useState([]);
+    const [exercise, setExercise] = useState([]);
     const [exNum, setExNum] = useState([]);
 
     const AuthState = useSelector(state => {
@@ -53,22 +54,22 @@ const Exercise = () => {
 
     let token = AuthState?.TokenId;
 
-    const getDay = (currId, index) => {
-        let lastId = programWeek?.program_weeks[index - 1]?.id == undefined ? 0 : programWeek?.program_weeks[index - 1]?.id;
-        setLastWeek(lastId)
+    const listDay = (weekId, weekNum) => {
         setQues(1);
-        getProgramWeekDays(currId, lastId, setDay, token);
+        setCurrWeek(weekNum);
+        let last = weekNum > 1 ? weekNum - 1 : weekNum;
+        setLastWeek(last);
+        getProgramWeekDays(weekId, last, setDay, token);
     };
 
-    const getDayEx = (date, dayId, title) => {
+    const getDayEx = (date, title, Id) => {
+        setDayId(Id);
         setDayNo(title.toUpperCase());
         setQues(2);
-        if (dayId !== null) {
-            programDayInfo(date, dayId, lastWeek, setDayEx, token);
-        };
+        programDayInfo(date, Id, lastWeek, setDayEx, token);
     };
 
-    const getExercise = (dayId, ExId) => {
+    const getExercise = (ExId) => {
         getExerciseSets(dayId, ExId, lastWeek, setExercise, token);
         setQues(3);
     };
@@ -85,10 +86,8 @@ const Exercise = () => {
         return (
             <>
                 <TouchableOpacity
-                    onPress={() => {
-                        getDay(item?.id, index);
-                        setWeek(item?.week_no);
-                    }}
+                    onPress={() => listDay(item?.id, item?.week_no)}
+                    key={index}
                 >
                     <WeekCard day={"Week " + item?.week_no} />
                 </TouchableOpacity>
@@ -99,9 +98,7 @@ const Exercise = () => {
     const renderDay = ({ item, key }) => {
         return (
             <TouchableOpacity
-                onPress={() => {
-                    getDayEx(item?.date, item?.day_id, item?.day_title);
-                }}
+                onPress={() => item?.status != "Rest Day" ? getDayEx(item?.date, item?.day_title, item?.day_id) : null}
                 key={key}
             >
                 <DayCard day={item} />
@@ -109,10 +106,18 @@ const Exercise = () => {
         );
     };
 
+    const renderWarmUp = ({ item }) => {
+        return (
+            <>
+                <WarmUpCard item={item} />
+            </>
+        );
+    };
+
     const renderExercise = ({ item }) => {
         return (
             <>
-                <TouchableOpacity onPress={() => getExercise(item?.id, item?.exercise_library?.id)}>
+                <TouchableOpacity onPress={() => getExercise(item?.id)}>
                     <ExerciseCard item={item} />
                 </TouchableOpacity>
             </>
@@ -123,22 +128,6 @@ const Exercise = () => {
         return (
             <>
                 <NanCard title={item?.title} week={item?.week} />
-            </>
-        );
-    };
-
-    // const renderSetData = ({ item }) => {
-    //     return (
-    //         <>
-    //             <SetDataBox item={item} />
-    //         </>
-    //     );
-    // };
-
-    const renderWarmUp = ({ item }) => {
-        return (
-            <>
-                <WarmUpCard item={item} />
             </>
         );
     };
@@ -175,7 +164,7 @@ const Exercise = () => {
                     ques === 1 ? (
                         <>
                             <UserHeader type={0} comp={0} />
-                            <DateView title={`WEEK ${week} DAYS`} type={1} setQues={setQues} />
+                            <DateView title={`WEEK ${currWeek} DAYS`} type={1} setQues={setQues} />
                             <FlatList
                                 data={day?.calculated_days}
                                 renderItem={(item, key) => renderDay(item, key)}
@@ -190,7 +179,7 @@ const Exercise = () => {
                         <>
                             <UserHeader type={0} comp={0} />
                             <DateView
-                                title={`WORKOUTS: WEEK ${week}-DAY ${dayNo}`}
+                                title={`WORKOUTS: WEEK ${currWeek}-DAY ${dayNo}`}
                                 type={1}
                                 setQues={setQues}
                             />
@@ -232,50 +221,45 @@ const Exercise = () => {
                         <>
                             <View style={{ width: "100%" }}>
                                 <UserHeader type={0} comp={1} />
-                                <DateView title={`WEEK ${week} - DAY ${dayNo}`} type={1} setQues={setQues} />
-                                <View style={styles.nutrition}>
-                                    <Text style={{ color: COLORS.white, alignSelf: "center" }}>
-                                        EXERCISE : {exercise?.exercises?.exercise_library?.exercise_category?.name}
-                                    </Text>
-                                </View>
-                                <View style={styles.card}>
-                                    <View>
-                                        <Image
-                                            source={backExercise}
-                                            style={styles.backImg}
-                                        />
-                                    </View>
-                                    <View style={styles.ExText}>
-                                        <Text style={styles.backText}>{exercise?.exercises?.exercise_library?.name}</Text>
-                                        <Text style={styles.primary}>{exercise?.exercises?.exercise_library?.description}</Text>
-                                    </View>
-                                    <View style={styles.ExText}>
-                                        <Text style={styles.backText}>Instructions</Text>
-                                        <Text style={styles.primary}>Sets X Reps, RPE</Text>
-                                        <Text style={styles.primary}>REST TIME: {exercise?.exercise_sets?.rest_time}</Text>
-                                    </View>
-                                    <TouchableOpacity style={styles.changeBtn}>
-                                        <Text style={styles.change}>Change Exercise</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <DateView title={"PREVIOUS ENTRIES"} type={0} />
-                                <FlatList
-                                    data={PreviousData}
-                                    renderItem={renderPrevious}
-                                    keyExtractor={(item) => item.id}
-                                    showsHorizontalScrollIndicator={false}
-                                    horizontal={true}
-                                    contentContainerStyle={{
-                                        flex: 1,
-                                        justifyContent: "space-between"
-                                    }}
-                                />
-                                {/* <FlatList
-                                    data={SetData}
-                                    renderItem={renderSetData}
-                                    keyExtractor={(item) => item.id}
-                                /> */}
+                                <DateView title={`WEEK ${currWeek} - DAY ${dayNo}`} type={1} setQues={setQues} />
                                 <ScrollView>
+                                    <View style={styles.nutrition}>
+                                        <Text style={{ color: COLORS.white, alignSelf: "center" }}>
+                                            EXERCISE : {exercise?.exercises?.exercise_library?.exercise_category?.name}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.card}>
+                                        <View>
+                                            <Image
+                                                source={backExercise}
+                                                style={styles.backImg}
+                                            />
+                                        </View>
+                                        <View style={styles.ExText}>
+                                            <Text style={styles.backText}>{exercise?.exercises?.exercise_library?.name}</Text>
+                                            <Text style={styles.primary}>{exercise?.exercises?.exercise_library?.description}</Text>
+                                        </View>
+                                        <View style={styles.ExText}>
+                                            <Text style={styles.backText}>Instructions</Text>
+                                            <Text style={styles.primary}>Sets X Reps, RPE</Text>
+                                            <Text style={styles.primary}>REST TIME: {exercise?.exercise_sets?.rest_time}</Text>
+                                        </View>
+                                        <TouchableOpacity style={styles.changeBtn}>
+                                            <Text style={styles.change}>Change Exercise</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <DateView title={"PREVIOUS ENTRIES"} type={0} />
+                                    <FlatList
+                                        data={PreviousData}
+                                        renderItem={renderPrevious}
+                                        keyExtractor={(item) => item.id}
+                                        showsHorizontalScrollIndicator={false}
+                                        horizontal={true}
+                                        contentContainerStyle={{
+                                            flex: 1,
+                                            justifyContent: "space-between"
+                                        }}
+                                    />
                                     {
                                         exNum?.map((v, i) => {
                                             return (

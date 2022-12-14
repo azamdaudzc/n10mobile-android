@@ -19,7 +19,7 @@ const SetDataBox = ({ item, num }) => {
         console.log("data", data);
     };
 
-    console.log("SetDataBox===>", item);
+    // console.log("SetDataBox===>", item);
 
     return (
         <>

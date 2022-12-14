@@ -9,7 +9,7 @@ import DetailModal from '../DetailModal';
 
 const WarmUpCard = ({ item }) => {
 
-    const [open, setOpen] = useState();
+    const [open, setOpen] = useState(false);
     const [warmInfo, setWarmInfo] = useState([])
 
     const AuthState = useSelector(state => {
@@ -18,7 +18,7 @@ const WarmUpCard = ({ item }) => {
 
     let token = AuthState?.TokenId;
 
-    console.log("WarmUpCard", warmInfo);
+    // console.log("WarmUpCard", warmInfo?.videos);
 
     useEffect(() => {
         warmUpInfo(item?.id, setWarmInfo, token);
@@ -32,14 +32,20 @@ const WarmUpCard = ({ item }) => {
                     <View style={styles.text}>
                         <Text style={styles.title}>{item?.warmup_builder?.name}</Text>
                         <Text style={styles.description}>{item?.warmup_builder?.description}</Text>
-                        <TouchableOpacity style={styles.learn}>
+                        <TouchableOpacity style={styles.learn} onPress={() => setOpen(!open)}>
                             <Text style={styles.learnText}>Learn More</Text>
                             <Image source={rightArrow} style={styles.rightArrow} />
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-            {/* <DetailModal open={open} setOpen={setOpen} /> */}
+            <DetailModal
+                open={open}
+                setOpen={setOpen}
+                title={warmInfo?.warmup?.name}
+                description={warmInfo?.warmup?.description}
+                arr={warmInfo?.videos}
+            />
         </>
     );
 };
