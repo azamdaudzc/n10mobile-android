@@ -22,7 +22,6 @@
     "react-native-dropdown-picker": "^5.4.3",
     "react-native-image-picker": "^4.10.1",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
-    "react-native-multi-steps": "^0.1.7",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "react-native-swiper": "^1.6.0",

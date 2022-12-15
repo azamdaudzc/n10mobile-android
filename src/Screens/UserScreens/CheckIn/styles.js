@@ -2,12 +2,23 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    inputField: {
+        marginLeft: 10,
+    },
+    inputStyle: {
+        borderWidth: 1,
+        marginTop: 15,
+        width: "80%",
+        alignSelf: "center",
+        borderRadius: 40
+    },
     sendAns: {
         marginTop: 30,
         alignSelf: "center",
         borderWidth: 1,
         height: 30,
-        width: 50
+        width: 50,
+        marginBottom: 50,
     },
     quesQuestion: {
         color: COLORS.mehron,
@@ -46,7 +57,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         alignSelf: "center",
-        tintColor: COLORS.offWhite
+        // tintColor: COLORS.offWhite
     },
     ansInput: {
         shadowColor: COLORS.black,
@@ -77,14 +88,16 @@ const styles = StyleSheet.create({
     quesHead: {
         color: COLORS.mehron,
         fontWeight: "bold",
-        fontSize: 18
+        fontSize: 18,
+        alignSelf: "center"
     },
     quesView: {
         alignSelf: "center",
-        marginTop: 25
+        marginTop: 25,
+        width: "90%"
     },
     container: {
-        flex: 1
+        flex: 1,
     }
 });
 

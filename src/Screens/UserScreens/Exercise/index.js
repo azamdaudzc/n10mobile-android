@@ -222,7 +222,7 @@ const Exercise = () => {
                             <View style={{ width: "100%" }}>
                                 <UserHeader type={0} comp={1} />
                                 <DateView title={`WEEK ${currWeek} - DAY ${dayNo}`} type={1} setQues={setQues} />
-                                <ScrollView>
+                                <ScrollView style={{ marginBottom: 200 }} showsVerticalScrollIndicator={false}>
                                     <View style={styles.nutrition}>
                                         <Text style={{ color: COLORS.white, alignSelf: "center" }}>
                                             EXERCISE : {exercise?.exercises?.exercise_library?.exercise_category?.name}

@@ -52,8 +52,8 @@ const Home = () => {
         <>
             <View style={styles.container}>
                 <UserHeader type={1} />
-                <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
                 <ScrollView showsVerticalScrollIndicator={false}>
+                    <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
                     <View>
                         <View style={styles.nutrition}>
                             <Text style={{ color: COLORS.white, alignSelf: "center" }}>
@@ -80,7 +80,7 @@ const Home = () => {
                             <Box title={"Weeks"} value={0} />
                         </View>
                     </View>
-                    <View>
+                    <View style={{ marginBottom: 70 }}>
                         <View style={styles.nutrition}>
                             <Text style={{ color: COLORS.white, alignSelf: "center" }}>
                                 CURRENT WEEK WORKOUTS

@@ -12,7 +12,7 @@ const checkInQues = async (setQues, token, setLoad) => {
             setLoad(false);
         };
     }).catch((err) => {
-        console.log("checkInQues error", err.response.data?.message);
+        console.log("checkInQues error", err);
     });
 };
 
@@ -22,13 +22,11 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
             Authorization: `Bearer ${token}`,
         },
     }).then((e) => {
-        // console.log("ImageUpload", e?.data);
         let imageData = {
             questionId: photoId,
             questionVal: e?.data
         };
         setAnsId(prev => [...prev, imageData]);
-        setHit(true);
         // let formData = new FormData();
         // formData.append('checkin_question_id', qId);
         // formData.append('answer', JSON.stringify(ansId));
@@ -40,7 +38,9 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
 
         // sendAns(formData, token, setLoad, setQues);
     }).catch((err) => {
+        console.log("ImageUpload", err?.response?.data);
         console.log("ImageUpload", err);
+        setLoad(false);
     });
 };
 
@@ -51,17 +51,11 @@ const sendAns = async (formData, token, setLoad, setQues) => {
             "Content-Type": "multipart/form-data"
         },
     }).then((e) => {
-        // console.log("sendAns", e?.data)
         if (e?.data?.new_data == "available") {
             checkInQues(setQues, token, setLoad);
-            // console.log("available  <====");
-        }
-        // else if (e?.data?.new_data == "not_available") {
-        //     setQues("done");
-        //     console.log("checkInQues  ====>");
-        // };
+        };
     }).catch((err) => {
-        console.log("sendAns error", err.response.data?.message);
+        // console.log("sendAns error", err?.response?.data?.message);
         console.log("sendAns error", err);
         setLoad(false);
     });
