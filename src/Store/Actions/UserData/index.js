@@ -17,7 +17,7 @@ const checkInQues = async (setQues, token, setLoad) => {
 };
 
 const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQues, setAnsId, setHit) => {
-    await API.post(`user-checkin-image-upload`, imageData, {
+    await API.post(`upload-file`, imageData, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -38,7 +38,7 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
 
         // sendAns(formData, token, setLoad, setQues);
     }).catch((err) => {
-        console.log("ImageUpload", err?.response?.data);
+        // console.log("ImageUpload", err?.response?.data);
         console.log("ImageUpload", err);
         setLoad(false);
     });
@@ -124,22 +124,17 @@ const getExerciseSets = async (dayId, ExId, lastWeek, setExercise, token) => {
     });
 };
 
-const postAnswer = async () => {
-    //     let data = {
-    //         day_id: "",
-    //         w_e_[day_exercise_id]_s_[set_no]: "",
-    //         r_e_[day_exercise_id]_s_[set_no]: "",
-    //         mai_e_[day_exercise_id]_s_[set_no]: ""
-    // }
-    await API.post(`user/program/day/store`, data, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }).then(e => {
-        console.log("postAnswer", e?.data);
-    }).catch((err) => {
-        console.log("postAnswer error", err);
-    });
+const postAnswer = async (form, num, token) => {
+    console.log("postAnswer API", form, num, token);
+    // await API.post(`user/program/day/store`, data, {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //     },
+    // }).then(e => {
+    //     console.log("postAnswer", e?.data);
+    // }).catch((err) => {
+    //     console.log("postAnswer error", err);
+    // });
 };
 
 const getNotification = async (setNotification, setRead, setLoad, token) => {

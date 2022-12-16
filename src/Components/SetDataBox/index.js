@@ -1,4 +1,6 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -6,20 +8,66 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
+import { useSelector } from "react-redux";
 import COLORS from "../../Constants/COLORS";
+import { postAnswer } from "../../Store/Actions/UserData";
 
-const SetDataBox = ({ item, num }) => {
+// const SetDataBox = ({ item, num, weight, setWeight, reps, setReps, rpes, setRpes, peak, setPeak, onChange }) => {
+const SetDataBox = ({ item, num, total, setTotal }) => {
 
+    const focus = useIsFocused();
     const [weight, setWeight] = useState();
+    const [reps, setReps] = useState();
+    const [rpes, setRpes] = useState(item?.exercise_sets?.rpe_no);
+    const [peak, setPeak] = useState();
 
-    const setIds = () => {
-        let data = {
-            dayId: item?.day_id
-        };
-        console.log("data", data);
+    const calculateMax = () => {
+        let reps1 = parseInt(reps);
+        let weight1 = parseInt(weight);
+        let rpe1 = parseInt(rpes);
+        console.log(reps1, weight1, rpe1);
+        let a = Math.round((((10 - rpe1) + reps1) * weight1 * 0.0333 + weight1));
+        setPeak(a);
+
     };
 
-    // console.log("SetDataBox===>", item);
+    console.log("total.length", total.length);
+
+    const onChangeFunc = (weight, reps) => {
+        console.log("onChangeFunc", weight);
+        let data = {
+            exerciseId: item?.exercise_sets?.id,
+            setNo: num + 1,
+            weight: weight,
+            reps: reps,
+            peak: peak
+        };
+        console.log("item,", data);
+        // let prev = ansId;
+        // let isAvailable = ansId.length > 0 ? prev.find(x => x?.questionId == qid) : undefined;
+        // if (isAvailable == undefined) {
+        //     setAnsId(prev => [...prev, data]);
+        // } else {
+        //     ansId.map((val) => {
+        //         setAnsId(prev => prev.map(e => e.questionId === qid ? { ...e, questionVal: qVal } : e));
+        //     });
+        // };
+    }
+
+    const send = () => {
+        const form = FormData();
+        form.append('day_id', item?.day_id)
+        form.append('w_e_' + item?.exercise_sets?.id + '_s_' + num, weight);
+        form.append('r_e_' + item?.exercise_sets?.id + '_s_' + num, reps);
+        form.append('mai_e_' + item?.exercise_sets?.id + '_s_' + num, peak);
+        // for (let i = 0; i == num; i++) {
+        postAnswer(num, token);
+        // };
+    };
+
+    useEffect(() => {
+        calculateMax();
+    }, [weight, reps, rpes, focus]);
 
     return (
         <>
@@ -35,10 +83,12 @@ const SetDataBox = ({ item, num }) => {
                         <View style={styles.textInput}>
                             <TextInput
                                 style={styles.input}
-                                placeholder={item?.exercise_sets?.load_text}
+                                // placeholder={item?.exercise_sets?.load_text}
                                 value={weight}
-                                onChangeText={setWeight}
-                                onChange={() => setIds()}
+                                onChangeText={(weight) => {
+                                    onChangeFunc(weight, reps);
+                                    // setWeight
+                                }}
                             />
                         </View>
                     </View>
@@ -49,9 +99,12 @@ const SetDataBox = ({ item, num }) => {
                         <View style={styles.textInput}>
                             <TextInput
                                 style={styles.input}
-                                placeholder={item?.exercise_sets?.rep_min_no?.toString()}
-                                value={weight}
-                                onChangeText={setWeight}
+                                // placeholder={item?.exercise_sets?.rep_min_no?.toString()}
+                                value={reps}
+                                onChangeText={(reps) => {
+                                    onChangeFunc(weight, reps);
+                                    // setReps
+                                }}
                             />
                         </View>
                     </View>
@@ -63,8 +116,21 @@ const SetDataBox = ({ item, num }) => {
                             <TextInput
                                 style={styles.input}
                                 placeholder={item?.exercise_sets?.rpe_no?.toString()}
-                                value={weight}
-                                onChangeText={setWeight}
+                                value={rpes}
+                            // onChangeText={setRpes}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ width: "20%" }}>
+                        <View style={styles.weightView}>
+                            <Text style={styles.weight}>Peak Exerted Max</Text>
+                        </View>
+                        <View style={styles.textInput}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={peak?.toString()}
+                            // value={peak}
+                            // onChangeText={setPeak}
                             />
                         </View>
                     </View>
@@ -112,7 +178,8 @@ const styles = StyleSheet.create({
     },
     weight: {
         fontSize: 10,
-        color: "#8d8d8d"
+        color: "#8d8d8d",
+        alignSelf: "center"
     },
     textInput: {
         width: "100%",

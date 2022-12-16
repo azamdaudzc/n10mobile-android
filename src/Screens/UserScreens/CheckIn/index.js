@@ -136,8 +136,6 @@ const CheckIn = () => {
         // };
     };
 
-    // console.log("ansId", ansId, photo);
-
     const send = () => {
         setLoad(true);
         setPage(page + 1);
@@ -164,7 +162,7 @@ const CheckIn = () => {
                     ImageUpload(imageData, ques?.id, ansId, photo[0]?.id, token, setLoad, setQues, setAnsId, setHit);
                 };
             });
-            setHit(true);
+            // setHit(true);
         } else {
             let formData = new FormData();
             formData.append('checkin_question_id', ques?.id);
@@ -178,7 +176,15 @@ const CheckIn = () => {
         launchImageLibrary({ noData: true }, (response) => {
             if (response?.didCancel == undefined) {
                 let abc = response?.assets[0];
-                setPhoto(prev1 => [...prev1, { abc, id }]); 
+                let prev = photo;
+                let isAvailable = photo.length > 0 ? prev.find(x => x?.id == id) : undefined;
+                if (isAvailable == undefined) {
+                    setPhoto(prev1 => [...prev1, { abc, id }]);
+                } else {
+                    ansId.map((val) => {
+                        setAnsId(prev => prev.map(e => e.id === id ? { ...e, fileName: abc?.fileName, uri: abc?.uri, type: abc?.type } : e));
+                    });
+                };
             };
         });
     };
@@ -196,11 +202,11 @@ const CheckIn = () => {
         checkInQues(setQues, token, setLoad);
     }, []);
 
-    useEffect(() => {
-        if (hit == true) {
-            send();
-        };
-    }, [hit]);
+    // useEffect(() => {
+    //     if (hit == true) {
+    //         send();
+    //     };
+    // }, [hit]);
 
     useEffect(() => {
         ques?.checkin_question_inputs?.forEach(element => {
@@ -337,28 +343,21 @@ const CheckIn = () => {
                                                                     <>
                                                                         <TouchableOpacity
                                                                             style={styles.imageUpload}
-                                                                            onPress={() => {
-                                                                                handleChoosePhoto(val?.id);
-                                                                                // setingVar(
-                                                                                //     val?.id,
-                                                                                //     0,
-                                                                                //     type
-                                                                                // );
-                                                                            }}
+                                                                            onPress={() => handleChoosePhoto(val?.id)}
                                                                         >
                                                                             {
                                                                                 photo?.length == 0 ? (
                                                                                     <Image source={upload} style={[styles.upload, { tintColor: COLORS.offWhite }]} />
                                                                                 ) : (
-                                                                                    <>
-                                                                                        {
-                                                                                            photo.map((val, ind) => {
-                                                                                                return (
-                                                                                                    <Image source={{ uri: val?.abc?.uri }} style={styles.upload} key={ind} />
-                                                                                                )
-                                                                                            })
-                                                                                        }
-                                                                                    </>
+                                                                                    // <>
+                                                                                    //     {
+                                                                                    //         photo.map((v, i) => {
+                                                                                    //             return (
+                                                                                                    <Image source={{ uri: photo[ind]?.abc?.uri }} style={styles.upload} />
+                                                                                    //             )
+                                                                                    //         })
+                                                                                    //     }
+                                                                                    // </>
                                                                                 )
                                                                             }
                                                                         </TouchableOpacity>

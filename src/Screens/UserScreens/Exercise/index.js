@@ -28,6 +28,7 @@ import {
     getProgramWeekDays,
     programDayInfo,
     getExerciseSets,
+    postAnswer,
 } from "../../../Store/Actions/UserData";
 import DayCard from "../../../Components/DayCard";
 import WarmUpCard from "../../../Components/WarmUpCard";
@@ -36,6 +37,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 const Exercise = () => {
 
+    const form = new FormData();
     const focus = useIsFocused();
     const [ques, setQues] = useState(0);
     const [programWeek, setProgramWeek] = useState([]);
@@ -47,6 +49,11 @@ const Exercise = () => {
     const [dayEx, setDayEx] = useState([]);
     const [exercise, setExercise] = useState([]);
     const [exNum, setExNum] = useState([]);
+    const [weight, setWeight] = useState([]);
+    const [reps, setReps] = useState([]);
+    const [rpes, setRpes] = useState(exercise?.exercise_sets?.rpe_no);
+    const [peak, setPeak] = useState([]);
+    const [total, setTotal] = useState([]);
 
     const AuthState = useSelector(state => {
         return state?.AuthReducer;
@@ -80,6 +87,30 @@ const Exercise = () => {
                 exNum.push(i);
             };
         };
+    };
+
+    // const calculate = (i) => {
+    //     console.log("calculate", i, weight);
+    //     let data = {
+    //         exerciseId: exercise?.exercise_sets?.id,
+    //         setNo: i + 1,
+    //         weight: weight,
+    //         reps: reps,
+    //         peak: peak
+    //     };
+    //     if (weight?.length == 0 && reps.length == 0) {
+    //         console.log("here");
+    //         // setTotal
+    //     };
+    // };
+
+    const send = () => {
+
+        // form.append('day_id', exercise?.day_id)
+        // form.append('w_e_' + exercise?.exercise_sets?.id + '_s_' + num, weight);
+        // form.append('r_e_' + exercise?.exercise_sets?.id + '_s_' + num, reps);
+        // form.append('mai_e_' + exercise?.exercise_sets?.id + '_s_' + num, peak);
+        postAnswer(form, num, token);
     };
 
     const renderWeek = ({ item, index }) => {
@@ -220,7 +251,7 @@ const Exercise = () => {
                     ques === 3 ? (
                         <>
                             <View style={{ width: "100%" }}>
-                                <UserHeader type={0} comp={1} />
+                                <UserHeader type={0} comp={0} />
                                 <DateView title={`WEEK ${currWeek} - DAY ${dayNo}`} type={1} setQues={setQues} />
                                 <ScrollView style={{ marginBottom: 200 }} showsVerticalScrollIndicator={false}>
                                     <View style={styles.nutrition}>
@@ -264,11 +295,29 @@ const Exercise = () => {
                                         exNum?.map((v, i) => {
                                             return (
                                                 <>
-                                                    <SetDataBox item={exercise} key={i} num={v} />
+                                                    <SetDataBox
+                                                        item={exercise}
+                                                        key={i}
+                                                        num={v}
+                                                        total={total}
+                                                        setTotal={setTotal}
+                                                    // weight={weight}
+                                                    // setWeight={setWeight}
+                                                    // reps={reps}
+                                                    // setReps={setReps}
+                                                    // rpes={rpes}
+                                                    // setRpes={setReps}
+                                                    // peak={peak}
+                                                    // setPeak={setPeak}
+                                                    // onChange={() => calculate(i)}
+                                                    />
                                                 </>
                                             );
                                         })
                                     }
+                                    <TouchableOpacity style={styles.sendBtn} onPress={send}>
+                                        <Text style={styles.sendText}>Send</Text>
+                                    </TouchableOpacity>
                                 </ScrollView>
                             </View>
                         </>

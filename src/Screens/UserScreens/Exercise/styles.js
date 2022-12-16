@@ -2,6 +2,22 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    sendText: {
+        alignSelf: "center",
+        color: COLORS.white,
+        fontWeight: "bold",
+        marginTop: 8
+    },
+    sendBtn: {
+        borderWidth: 1,
+        width: "80%",
+        alignSelf: "center",
+        height: 40,
+        borderColor: COLORS.mehron,
+        backgroundColor: COLORS.mehron,
+        marginBottom: 10,
+        borderRadius: 40
+    },
     warmCard: {
         backgroundColor: "red",
         width: "100%"
