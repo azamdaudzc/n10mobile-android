@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    loader: {
+        marginTop: "75%"
+    },
     sendText: {
         alignSelf: "center",
         color: COLORS.white,

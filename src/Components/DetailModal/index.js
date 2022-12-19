@@ -11,8 +11,6 @@ import {
 import COLORS from '../../Constants/COLORS';
 import { cancel } from '../../Constants/Images';
 import YoutubePlayer from "react-native-youtube-iframe";
-import Video from 'react-native-video';
-import Swiper from 'react-native-swiper';
 
 const DetailModal = ({ open, setOpen, title, description, video, category, equipment, pattern, arr }) => {
 
@@ -77,37 +75,20 @@ const DetailModal = ({ open, setOpen, title, description, video, category, equip
                                             <>
                                                 {
                                                     arr.map((v, i) => {
+                                                        let abc = v?.video_url.split("=");
                                                         return (
-                                                            // <Swiper
-                                                            //     style={styles.wrapper}
-                                                            //     showsButtons={false}
-                                                            //     dot={<View style={styles.inActive} />}
-                                                            //     activeDot={<View style={styles.active} />}
-                                                            // >
                                                             <View style={styles.slide1} key={i}>
                                                                 <YoutubePlayer
                                                                     height={160}
                                                                     width={"100%"}
                                                                     play={playing}
-                                                                    videoId={v?.video_url}
+                                                                    videoId={abc[1]}
                                                                     onChangeState={onStateChange}
                                                                 />
                                                             </View>
-                                                            // </Swiper>
                                                         )
                                                     })
                                                 }
-                                                {/* 
-                                                    <View style={styles.slide1}>
-                                                        <YoutubePlayer
-                                                            height={160}
-                                                            width={"100%"}
-                                                            play={playing}
-                                                            videoId={ }
-                                                            onChangeState={onStateChange}
-                                                        />
-                                                    </View>
-                                                */}
                                             </>
                                         ) : (
                                             <YoutubePlayer
@@ -119,13 +100,6 @@ const DetailModal = ({ open, setOpen, title, description, video, category, equip
                                             />
                                         )
                                     }
-                                    {/* <Video
-                                        source={{ uri: 'https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4' }}
-                                        paused={false}                  // make it start    
-                                        style={styles.backgroundVideo}  // any style you want
-                                        repeat={true}                   // make it a loop
-                                        ref={ref => (videoPlayer.current = ref)}
-                                    /> */}
                                 </View>
                             </ScrollView>
                         </View>

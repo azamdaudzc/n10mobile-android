@@ -40,6 +40,7 @@ const CheckIn = () => {
     const [ansId, setAnsId] = useState([]);
     const [ids, setIds] = useState([]);
     const [hit, setHit] = useState(false);
+    const [indPhoto, setIndPhoto] = useState([]);
 
     const AuthState = useSelector(state => {
         return state?.AuthReducer;
@@ -131,9 +132,6 @@ const CheckIn = () => {
                 });
             };
         };
-        // if (type == "image") {
-
-        // };
     };
 
     const send = () => {
@@ -172,7 +170,7 @@ const CheckIn = () => {
         };
     };
 
-    const handleChoosePhoto = (id) => {
+    const handleChoosePhoto = (id, ind) => {
         launchImageLibrary({ noData: true }, (response) => {
             if (response?.didCancel == undefined) {
                 let abc = response?.assets[0];
@@ -180,6 +178,7 @@ const CheckIn = () => {
                 let isAvailable = photo.length > 0 ? prev.find(x => x?.id == id) : undefined;
                 if (isAvailable == undefined) {
                     setPhoto(prev1 => [...prev1, { abc, id }]);
+                    setIndPhoto(prev1 => [...prev1, { abc, ind, id }]);
                 } else {
                     ansId.map((val) => {
                         setAnsId(prev => prev.map(e => e.id === id ? { ...e, fileName: abc?.fileName, uri: abc?.uri, type: abc?.type } : e));
@@ -343,21 +342,27 @@ const CheckIn = () => {
                                                                     <>
                                                                         <TouchableOpacity
                                                                             style={styles.imageUpload}
-                                                                            onPress={() => handleChoosePhoto(val?.id)}
+                                                                            onPress={() => handleChoosePhoto(val?.id, ind)}
                                                                         >
                                                                             {
-                                                                                photo?.length == 0 ? (
+                                                                                indPhoto?.length == 0 ? (
                                                                                     <Image source={upload} style={[styles.upload, { tintColor: COLORS.offWhite }]} />
                                                                                 ) : (
-                                                                                    // <>
-                                                                                    //     {
-                                                                                    //         photo.map((v, i) => {
-                                                                                    //             return (
-                                                                                                    <Image source={{ uri: photo[ind]?.abc?.uri }} style={styles.upload} />
-                                                                                    //             )
-                                                                                    //         })
-                                                                                    //     }
-                                                                                    // </>
+                                                                                    <>
+                                                                                        {
+                                                                                            indPhoto.map((v, i) => {
+                                                                                                return (
+                                                                                                    <View key={i}>
+                                                                                                        {
+                                                                                                            ind == v.ind ? (
+                                                                                                                <Image source={{ uri: v?.abc?.uri }} style={styles.upload} />
+                                                                                                            ) : null
+                                                                                                        }
+                                                                                                    </View>
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </>
                                                                                 )
                                                                             }
                                                                         </TouchableOpacity>

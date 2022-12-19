@@ -124,15 +124,16 @@ const getExerciseSets = async (dayId, ExId, lastWeek, setExercise, token) => {
     });
 };
 
-const postAnswer = async (form, num, token) => {
-    console.log("postAnswer API", form, num, token);
-    // await API.post(`user/program/day/store`, data, {
+const postAnswer = async (total, token) => {
+    console.log("postAnswer API", total, token);
+    // await API.post(`user/program/day/store`, total, {
     //     headers: {
     //         Authorization: `Bearer ${token}`,
     //     },
     // }).then(e => {
     //     console.log("postAnswer", e?.data);
     // }).catch((err) => {
+    //     console.log("postAnswer error", err?.response?.data?.message);
     //     console.log("postAnswer error", err);
     // });
 };

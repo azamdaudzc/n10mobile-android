@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Text, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import DateView from "../../../Components/DateView";
-import DetailModal from "../../../Components/DetailModal";
 import ExLibCard from "../../../Components/ExLibCard";
-import HomeHeader from "../../../Components/HomeHeader";
 import UserHeader from "../../../Components/UserHeader";
 import COLORS from "../../../Constants/COLORS";
-import ExerciseData from "../../../Constants/ExerciseData";
 import { filter } from "../../../Constants/Images";
 import { getExerciseLibrary } from "../../../Store/Actions/UserData";
 import styles from "./styles.js";
 
 const ExerciseLibrary = () => {
 
-    const [filterData, setFilterData] = useState();
+    const [filterData, setFilterData] = useState('');
     const [exercise, setExercises] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [filteredResults, setFilteredResults] = useState([]);
 
     const AuthState = useSelector(state => {
         return state?.AuthReducer;
@@ -33,16 +30,28 @@ const ExerciseLibrary = () => {
         );
     };
 
+    const searchItems = (e) => {
+        setFilterData(e);
+        if (filterData !== '') {
+            const emp = exercise ? exercise?.filter(item => item?.name?.toLowerCase().includes(filterData.toLowerCase())) : exercise
+            setFilteredResults(emp);
+        } else {
+            setFilteredResults(exercise);
+        };
+    };
+
     useEffect(() => {
         getExerciseLibrary(setExercises, token);
     }, []);
 
+    useEffect(() => {
+        const emp = exercise ? exercise?.filter(item => item?.name?.toLowerCase().includes(filterData.toLowerCase())) : exercise
+        setFilteredResults(emp);
+    }, [filterData])
+
     return (
         <>
             <View style={styles.container}>
-                {/* <View style={{ alignItems: "center", backgroundColor: COLORS.grey }}>
-                    <HomeHeader />
-                </View> */}
                 <UserHeader type={1} />
                 <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
                 <View style={styles.nutrition}>
@@ -54,7 +63,7 @@ const ExerciseLibrary = () => {
                     <TextInput
                         placeholder={"Search Exercise"}
                         value={filterData}
-                        onChangeText={setFilterData}
+                        onChangeText={(e) => searchItems(e)}
                         style={styles.filterText}
                     />
                     <View style={styles.filterBack}>
@@ -64,13 +73,22 @@ const ExerciseLibrary = () => {
                         />
                     </View>
                 </View>
-                <FlatList
-                    data={exercise}
-                    renderItem={renderExercise}
-                    keyExtractor={(item) => item.id}
-                />
+                {
+                    filteredResults.length > 0 ? (
+                        <FlatList
+                            data={filteredResults}
+                            renderItem={renderExercise}
+                            keyExtractor={(item) => item.id}
+                        />
+                    ) : (
+                        <FlatList
+                            data={exercise}
+                            renderItem={renderExercise}
+                            keyExtractor={(item) => item.id}
+                        />
+                    )
+                }
             </View>
-            {/* <DetailModal open={open} setOpen={setOpen} title={exercise?.name} /> */}
         </>
     );
 };

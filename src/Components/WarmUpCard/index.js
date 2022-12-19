@@ -18,8 +18,6 @@ const WarmUpCard = ({ item }) => {
 
     let token = AuthState?.TokenId;
 
-    // console.log("WarmUpCard", warmInfo?.videos);
-
     useEffect(() => {
         warmUpInfo(item?.id, setWarmInfo, token);
     }, []);
@@ -30,8 +28,8 @@ const WarmUpCard = ({ item }) => {
                 <View style={styles.row}>
                     <Image source={legExercise} style={styles.image} />
                     <View style={styles.text}>
-                        <Text style={styles.title}>{item?.warmup_builder?.name}</Text>
-                        <Text style={styles.description}>{item?.warmup_builder?.description}</Text>
+                        <Text style={styles.title}>{item?.name}</Text>
+                        <Text style={styles.description}>{item?.description}</Text>
                         <TouchableOpacity style={styles.learn} onPress={() => setOpen(!open)}>
                             <Text style={styles.learnText}>Learn More</Text>
                             <Image source={rightArrow} style={styles.rightArrow} />

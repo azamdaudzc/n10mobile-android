@@ -16,7 +16,7 @@ const ExLibCard = ({ item }) => {
     return (
         <>
             <TouchableOpacity style={styles.container} onPress={() => setOpen(true)}>
-                <Image source={item?.avatar} style={styles.image} />
+                <Image source={{ uri: item?.avatar }} style={styles.image} />
                 <View>
                     <Text style={styles.title}>{item?.name}</Text>
                     <Text style={styles.description}>{item?.description}</Text>
