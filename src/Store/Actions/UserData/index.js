@@ -27,18 +27,7 @@ const ImageUpload = async (imageData, qId, ansId, photoId, token, setLoad, setQu
             questionVal: e?.data
         };
         setAnsId(prev => [...prev, imageData]);
-        // let formData = new FormData();
-        // formData.append('checkin_question_id', qId);
-        // formData.append('answer', JSON.stringify(ansId));
-        // formData.append('answer', JSON.stringify(imageData));
-        //     let formData = new FormData();
-        //     formData.append('checkin_question_id', ques?.id);
-        //     formData.append('answer', JSON.stringify(ansId));
-        //     formData.append("imageLink", JSON.stringify(e?.data));
-
-        // sendAns(formData, token, setLoad, setQues);
     }).catch((err) => {
-        // console.log("ImageUpload", err?.response?.data);
         console.log("ImageUpload", err);
         setLoad(false);
     });
@@ -55,7 +44,6 @@ const sendAns = async (formData, token, setLoad, setQues) => {
             checkInQues(setQues, token, setLoad);
         };
     }).catch((err) => {
-        // console.log("sendAns error", err?.response?.data?.message);
         console.log("sendAns error", err);
         setLoad(false);
     });
@@ -69,7 +57,7 @@ const getProgramWeek = async (setProgramWeek, token) => {
     }).then(e => {
         setProgramWeek(e?.data);
     }).catch(err => {
-        console.log("getUseProgram error", err.response.data?.message);
+        console.log("getUseProgram error", err);
     });
 };
 
@@ -106,13 +94,13 @@ const programDayInfo = async (date, dayId, lastWeek, setDayEx, token) => {
     });
 };
 
-const getExerciseSets = async (dayId, ExId, lastWeek, setExercise, token) => {
+const getExerciseSets = async (dayId, ExId, libId, lastWeek, setExercise, token) => {
     let data = {
         last_week_id: lastWeek,
         day_id: dayId,
         exercise_id: ExId,
+        exercise_library_id: libId,
     };
-    // console.log("data", data);
     await API.post(`get/user/program/day/exercisesets`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -120,22 +108,23 @@ const getExerciseSets = async (dayId, ExId, lastWeek, setExercise, token) => {
     }).then(e => {
         setExercise(e?.data);
     }).catch((err) => {
-        console.log("getExerciseSets error", err?.response?.data?.message);
+        console.log("getExerciseSets error", err?.response);
     });
 };
 
-const postAnswer = async (total, token) => {
-    console.log("postAnswer API", total, token);
-    // await API.post(`user/program/day/store`, total, {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // }).then(e => {
-    //     console.log("postAnswer", e?.data);
-    // }).catch((err) => {
-    //     console.log("postAnswer error", err?.response?.data?.message);
-    //     console.log("postAnswer error", err);
-    // });
+const postAnswer = async (total, setQues, token) => {
+    await API.post(`user/program/day/store`, total, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(e => {
+        if (e?.data?.success == true) {
+            setQues(1);
+        };
+    }).catch((err) => {
+        console.log("postAnswer error", err?.response?.data?.message);
+        console.log("postAnswer error", err);
+    });
 };
 
 const getNotification = async (setNotification, setRead, setLoad, token) => {

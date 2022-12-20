@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useIsFocused } from "@react-navigation/native";
 import {
     StyleSheet,
     Text,
@@ -10,23 +9,23 @@ import COLORS from "../../Constants/COLORS";
 
 const SetDataBox = ({ item, num, total, setTotal }) => {
 
-    const focus = useIsFocused();
+    // console.log("SetDataBox", item?.last_exercise_sets);
+
     const [weight, setWeight] = useState();
     const [reps, setReps] = useState();
     const [rpes, setRpes] = useState(item?.exercise_sets?.rpe_no);
     const [peak, setPeak] = useState(0);
 
-    // const calculateMax = () => {
-    //     let reps1 = parseInt(reps);
-    //     let weight1 = parseInt(weight);
-    //     let rpe1 = parseInt(rpes);
-    //     let a = Math.round((((10 - rpe1) + reps1) * weight1 * 0.0333 + weight1));
-    //     return a;
-    // };
+    const calculateMax = () => {
+        let reps1 = parseInt(reps);
+        let weight1 = parseInt(weight);
+        let rpe1 = parseInt(rpes);
+        let a = Math.round((((10 - rpe1) + reps1) * weight1 * 0.0333 + weight1));
+        return setPeak(a);
+    };
 
     const onChangeFunc = (weight, reps) => {
         let data = {
-            day_id: item?.day_id,
             exerciseId: item?.exercise_sets?.id,
             setNo: num + 1,
             weight: weight,
@@ -53,18 +52,19 @@ const SetDataBox = ({ item, num, total, setTotal }) => {
                 setTotal(prev => prev.map(e => e.weight !== undefined && e.reps !== undefined ? { ...e, peak: Math.round((((10 - e?.rpes) + e?.reps) * e?.weight * 0.0333 + e?.weight)) } : e));
             };
         };
-        // total.map(val => {
-        //     if (val?.weight !== undefined && val?.reps !== undefined) {
-        //         setPeak(Math.round((((10 - val?.rpes) + val?.reps) * val?.weight * 0.0333 + val?.weight)));
-        //     };
-        // });
     };
 
-    useEffect(() => {
-        setPeak(Math.round((((10 - rpes) + reps) * weight * 0.0333 + weight)));
-    }, [weight, reps, rpes, focus]);
+    const peakFunc = () => {
+        total.forEach((v, i) => {
+            if (i == num) {
+                setPeak(v?.peak)
+            };
+        });
+    };
 
-    // console.log("Calculate Max Function", peak);
+    setInterval(() => {
+        peakFunc();
+    }, 5000);
 
     return (
         <>
@@ -118,6 +118,35 @@ const SetDataBox = ({ item, num, total, setTotal }) => {
                         </View>
                     </View>
                 </View>
+                <View>
+                    <Text style={styles.previousText}>Previous Data</Text>
+                </View>
+                <View style={styles.rowData}>
+                    <View style={{ width: "20%" }}>
+                        <View style={styles.weightView}>
+                            <Text style={styles.weight}>weight</Text>
+                        </View>
+                        <View style={styles.textInput}>
+                            <Text style={styles.inputText}>{item?.last_exercise_sets[num]?.weight}</Text>
+                        </View>
+                    </View>
+                    <View style={{ width: "20%" }}>
+                        <View style={styles.weightView}>
+                            <Text style={styles.weight}>REPS</Text>
+                        </View>
+                        <View style={styles.textInput}>
+                            <Text style={styles.inputText}>{item?.last_exercise_sets[num]?.reps}</Text>
+                        </View>
+                    </View>
+                    <View style={{ width: "20%" }}>
+                        <View style={styles.weightView}>
+                            <Text style={styles.weight}>RPES</Text>
+                        </View>
+                        <View style={styles.textInput}>
+                            <Text style={styles.inputText}>{item?.last_exercise_sets[num]?.rpe}</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
         </>
     );
@@ -126,6 +155,10 @@ const SetDataBox = ({ item, num, total, setTotal }) => {
 export default SetDataBox;
 
 const styles = StyleSheet.create({
+    previousText: {
+        color: COLORS.black,
+        alignSelf: "center"
+    },
     inputText: {
         fontSize: 10,
         marginTop: 6,

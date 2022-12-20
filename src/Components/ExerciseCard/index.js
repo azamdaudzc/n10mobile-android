@@ -14,7 +14,6 @@ const ExerciseCard = ({ item }) => {
                     <Text style={styles.title}>{item?.exercise_library?.name}</Text>
                     <Text style={styles.inst}>DESCRIPTION</Text>
                     <Text style={styles.inst}>{item?.exercise_library?.description}</Text>
-                    {/* <Text style={styles.inst}>Rest rest</Text> */}
                 </View>
                 <TouchableOpacity style={styles.press}>
                     <Image
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
         shadowRadius: 9.51,
         elevation: 15,
         height: 100,
-        marginTop: 10,
+        marginTop: 5,
+        marginBottom: 5,
         width: "95%",
         borderRadius: 10,
         flexDirection: "row",

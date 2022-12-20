@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 15,
         fontWeight: "bold",
-        color: COLORS.mehron
+        color: COLORS.mehron,
+        width: "80%"
     },
     row: {
         flexDirection: "row",
@@ -91,8 +92,8 @@ const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
         color: COLORS.grey1,
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 5,
         padding: 10,
         borderRadius: 10,
         borderColor: COLORS.grey1,

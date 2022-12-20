@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://10.0.2.2:8000/api/",
+    baseURL: "https://n10client.demowiz.art/api/",
     // baseURL: `http://n10client.test/api/`,
     //n10client.demowiz.art
     headers: {

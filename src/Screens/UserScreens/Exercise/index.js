@@ -38,7 +38,6 @@ import { useIsFocused } from "@react-navigation/native";
 
 const Exercise = () => {
 
-    const form = new FormData();
     const focus = useIsFocused();
     const [ques, setQues] = useState(0);
     const [programWeek, setProgramWeek] = useState([]);
@@ -52,6 +51,7 @@ const Exercise = () => {
     const [exNum, setExNum] = useState([]);
     const [total, setTotal] = useState([]);
     const [render, setRender] = useState(0);
+    // const [PreviousData, setPrev] = useState('');
 
     const AuthState = useSelector(state => {
         return state?.AuthReducer;
@@ -74,8 +74,8 @@ const Exercise = () => {
         programDayInfo(date, Id, lastWeek, setDayEx, token);
     };
 
-    const getExercise = (ExId) => {
-        getExerciseSets(dayId, ExId, lastWeek, setExercise, token);
+    const getExercise = (ExId, libId) => {
+        getExerciseSets(dayId, ExId, libId, lastWeek, setExercise, token);
         setQues(3);
     };
 
@@ -89,11 +89,21 @@ const Exercise = () => {
     };
 
     const send = () => {
-        // form.append('day_id', exercise?.day_id)
-        // form.append('w_e_' + exercise?.exercise_sets?.id + '_s_' + num, weight);
-        // form.append('r_e_' + exercise?.exercise_sets?.id + '_s_' + num, reps);
-        // form.append('mai_e_' + exercise?.exercise_sets?.id + '_s_' + num, peak);
-        postAnswer(total, token);
+        let i = 0;
+        total.forEach(element => {
+            if (element?.weight !== undefined && element?.reps !== undefined) {
+                i = i + 1;
+            };
+        });
+        let final = {
+            day_id: exercise?.day_id,
+            values: total
+        };
+        if (i == exNum.length) {
+            postAnswer(final, setQues, token);
+        } else {
+            alert("Please enter all data");
+        };
     };
 
     const renderWeek = ({ item, index }) => {
@@ -131,7 +141,7 @@ const Exercise = () => {
     const renderExercise = ({ item }) => {
         return (
             <>
-                <TouchableOpacity onPress={() => getExercise(item?.id)}>
+                <TouchableOpacity onPress={() => getExercise(item?.id, item?.exercise_library_id)}>
                     <ExerciseCard item={item} />
                 </TouchableOpacity>
             </>
@@ -156,7 +166,13 @@ const Exercise = () => {
         if (render == 1) {
             setRender(2);
         };
+        // for (i = 0; i = exNum; i++) {
+            // setPrev(exercise?.last_exercise_sets);
+        // }
+
     }, [exercise, focus]);
+
+    // console.log("exercise", PreviousData);
 
     return (
         <>
@@ -249,7 +265,7 @@ const Exercise = () => {
                                                 <View style={styles.card}>
                                                     <View>
                                                         <Image
-                                                            source={backExercise}
+                                                            source={{ uri: exercise?.exercises?.exercise_library?.avatar }}
                                                             style={styles.backImg}
                                                         />
                                                     </View>
@@ -266,7 +282,7 @@ const Exercise = () => {
                                                         <Text style={styles.change}>Change Exercise</Text>
                                                     </TouchableOpacity>
                                                 </View>
-                                                <DateView title={"PREVIOUS ENTRIES"} type={0} />
+                                                {/* <DateView title={"PREVIOUS ENTRIES"} type={0} />
                                                 <FlatList
                                                     data={PreviousData}
                                                     renderItem={renderPrevious}
@@ -277,7 +293,15 @@ const Exercise = () => {
                                                         flex: 1,
                                                         justifyContent: "space-between"
                                                     }}
-                                                />
+                                                /> */}
+                                                {/* {
+                                                    exercise?.last_exercise_sets.map((v, i) => {
+                                                        console.log("exercise?.last_exercise_sets", v);
+                                                        // return (
+                                                        //     <NanCard title={item?.title} week={item?.week} key={i} />
+                                                        // )
+                                                    })
+                                                } */}
                                                 {
                                                     exNum?.map((v, i) => {
                                                         return (
