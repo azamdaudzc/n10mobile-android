@@ -65,6 +65,7 @@ const ExerciseLibrary = () => {
                         value={filterData}
                         onChangeText={(e) => searchItems(e)}
                         style={styles.filterText}
+                        placeholderTextColor={COLORS.black}
                     />
                     <View style={styles.filterBack}>
                         <Image

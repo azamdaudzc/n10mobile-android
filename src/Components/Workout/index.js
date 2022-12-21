@@ -27,7 +27,8 @@ export default Workout;
 const styles = StyleSheet.create({
     workDetail: {
         width: "80%",
-        fontSize: 18
+        fontSize: 18,
+        color: COLORS.black
     },
     workTitle: {
         fontWeight: "bold",

@@ -1,4 +1,4 @@
-const backExercise = require("../../Assets/back.jpg");
+// const backExercise = require("../../Assets/back.jpg");
 const list = require("../../Assets/list.png");
 const person = require("../../Assets/person.png");
 const bell = require("../../Assets/bell.png");
@@ -71,5 +71,5 @@ export {
     bell,
     person,
     list,
-    backExercise,
+    // backExercise,
 };

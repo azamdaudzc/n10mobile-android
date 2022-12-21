@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     nameInput: {
-        marginLeft: 10
+        marginLeft: 10,
+        color: COLORS.black
     },
     nameBorder: {
         borderWidth: 1,

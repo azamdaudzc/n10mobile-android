@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         width: "80%",
         textAlign: "center",
-        alignSelf: "center"
+        alignSelf: "center",
+        color: COLORS.black
     },
     N10: {
         marginTop: 20,

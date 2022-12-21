@@ -27,7 +27,8 @@ export default Time;
 const styles = StyleSheet.create({
     timeDetail: {
         width: "80%",
-        fontSize: 18
+        fontSize: 18,
+        color: COLORS.black
     },
     timeText: {
         color: COLORS.mehron,

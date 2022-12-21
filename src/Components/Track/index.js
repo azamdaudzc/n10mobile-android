@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
     detail: {
         width: "80%",
-        fontSize: 18
+        fontSize: 18,
+        color: COLORS.black
     },
     title: {
         fontWeight: "bold",

@@ -123,6 +123,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={fname}
                                                 onChangeText={setFname}
+                                                placeholderTextColor={COLORS.black}
                                             />
                                         </View>
                                         <View style={styles.nameBorder}>
@@ -130,6 +131,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={lName}
                                                 onChangeText={setLName}
+                                                placeholderTextColor={COLORS.black}
                                             />
                                         </View>
                                     </View>
@@ -138,6 +140,7 @@ const EditProfile = () => {
                                             style={styles.nameInput}
                                             value={email}
                                             onChangeText={setEmail}
+                                            placeholderTextColor={COLORS.black}
                                         />
                                     </View>
                                     <View style={styles.emailInput}>
@@ -146,6 +149,7 @@ const EditProfile = () => {
                                             value={num}
                                             onChangeText={setNum}
                                             placeholder={"Phone Number"}
+                                            placeholderTextColor={COLORS.black}
                                         />
                                     </View>
                                     <View style={styles.nameInputs}>
@@ -154,6 +158,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={age}
                                                 onChangeText={setAge}
+                                                placeholderTextColor={COLORS.black}
                                             />
                                         </View>
                                         <View style={styles.nameBorder}>
@@ -161,6 +166,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={height}
                                                 onChangeText={setHeight}
+                                                placeholderTextColor={COLORS.black}
                                             />
                                         </View>
                                     </View>
@@ -230,6 +236,7 @@ const EditProfile = () => {
                                             onChangeText={setPass}
                                             placeholder={"Password"}
                                             secureTextEntry={secure}
+                                            placeholderTextColor={COLORS.black}
                                         />
                                         <TouchableOpacity
                                             style={styles.eyeBtn}
@@ -247,6 +254,7 @@ const EditProfile = () => {
                                             onChangeText={setConPass}
                                             placeholder={"Confirm Password"}
                                             secureTextEntry={secure}
+                                            placeholderTextColor={COLORS.black}
                                         />
                                         <TouchableOpacity
                                             style={styles.eyeBtn}
