@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height: 45,
         borderColor: COLORS.white,
-        marginBottom: 10,
+        marginBottom: 20,
     },
     logText: {
         marginLeft: 5,
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     container: {
-        marginBottom: 50,
-        marginTop: 50
+        marginBottom: 15,
+        marginTop: 15
     },
     nameInput: {
         borderWidth: 1,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         height: 45,
         padding: 15,
         width: "100%",
-        borderRadius: 30
+        borderRadius: 30,
     },
     firstText: {
         color: COLORS.white,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         width: "90%",
-        marginBottom: 10,
+        marginBottom: 20,
     },
     logo: {
         resizeMode: "contain",

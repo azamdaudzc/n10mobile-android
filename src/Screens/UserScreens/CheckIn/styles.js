@@ -2,6 +2,17 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    sendText: {
+        alignSelf: "center",
+        color: COLORS.white,
+        marginTop: 10
+    },
+    programText: {
+        color: COLORS.mehron,
+        alignSelf: "center",
+        marginTop: "60%",
+        fontSize: 20
+    },
     inputField: {
         marginLeft: 10,
     },
@@ -16,9 +27,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
         alignSelf: "center",
         borderWidth: 1,
-        height: 30,
-        width: 50,
+        height: 40,
+        width: "80%",
         marginBottom: 50,
+        backgroundColor: COLORS.mehron,
+        borderRadius: 40
     },
     quesQuestion: {
         color: COLORS.mehron,

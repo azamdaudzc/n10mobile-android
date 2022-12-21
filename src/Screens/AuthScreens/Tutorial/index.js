@@ -5,7 +5,6 @@ import Time from '../../../Components/Time';
 import Track from '../../../Components/Track';
 import Trainer from '../../../Components/Trainer';
 import Workout from '../../../Components/Workout';
-import COLORS from '../../../Constants/COLORS';
 import styles from './styles';
 
 const Tutorial = () => {
@@ -13,36 +12,10 @@ const Tutorial = () => {
     return (
         <>
             <Swiper
-                style={styles.wrapper}
                 showsButtons={false}
-                dot={
-                    <View
-                        style={{
-                            backgroundColor: 'rgba(0,0,0,.2)',
-                            width: 5,
-                            height: 5,
-                            borderRadius: 4,
-                            marginLeft: 3,
-                            marginRight: 3,
-                            marginTop: 3,
-                            marginBottom: "10%"
-                        }}
-                    />
-                }
-                activeDot={
-                    <View
-                        style={{
-                            backgroundColor: COLORS.mehron,
-                            width: 20,
-                            height: 8,
-                            borderRadius: 4,
-                            marginLeft: 3,
-                            marginRight: 3,
-                            marginTop: 3,
-                            marginBottom: "10%"
-                        }}
-                    />
-                }
+                dot={<View style={styles.inActive} />}
+                activeDot={<View style={styles.active} />}
+                loop={false}
             >
                 <View style={styles.slide1}>
                     <Time />

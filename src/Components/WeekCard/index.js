@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import COLORS from "../../Constants/COLORS";
 import { leftArrow } from "../../Constants/Images";
 
-const WeekCard = ({ day }) => {
+const WeekCard = ({ day, arrow }) => {
     return (
         <>
             <View style={styles.shadow}>
@@ -14,10 +14,14 @@ const WeekCard = ({ day }) => {
                         </View>
                         <Text style={styles.dayText}>{day}</Text>
                     </View>
-                    <Image
-                        source={leftArrow}
-                        style={styles.leftArrow}
-                    />
+                    {
+                        arrow == 1 ? (
+                            <Image
+                                source={leftArrow}
+                                style={styles.leftArrow}
+                            />
+                        ) : null
+                    }
                 </View>
             </View>
         </>

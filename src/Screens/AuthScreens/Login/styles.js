@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: COLORS.smokeWhite,
-        marginLeft: 20
+        marginLeft: 20,
+        width: "80%"
     },
     eye: {
         position: "absolute",

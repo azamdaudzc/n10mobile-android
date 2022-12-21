@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 10,
         color: COLORS.grey2,
-        width: "90%"
+        width: "75%",
     },
     text: {
         marginLeft: 8

@@ -34,13 +34,13 @@ const CheckIn = () => {
 
     const [page, setPage] = useState(1);
     const [ques, setQues] = useState([]);
-    const [ans1, setAns1] = useState();
     const [photo, setPhoto] = useState([]);
     const [load, setLoad] = useState(true);
     const [ansId, setAnsId] = useState([]);
     const [ids, setIds] = useState([]);
     const [hit, setHit] = useState(false);
     const [indPhoto, setIndPhoto] = useState([]);
+    const [newUser, setNewUser] = useState(0);
 
     const AuthState = useSelector(state => {
         return state?.AuthReducer;
@@ -49,7 +49,6 @@ const CheckIn = () => {
     let token = AuthState?.TokenId;
 
     const setingVar = (qid, qVal, type) => {
-        // console.log("type", type);
         let data = {
             questionId: qid,
             questionVal: qVal
@@ -198,7 +197,7 @@ const CheckIn = () => {
     };
 
     useEffect(() => {
-        checkInQues(setQues, token, setLoad);
+        checkInQues(setQues, token, setLoad, setNewUser);
     }, []);
 
     // useEffect(() => {
@@ -242,158 +241,171 @@ const CheckIn = () => {
                                 ) : (
                                     <>
                                         <ScrollView showsVerticalScrollIndicator={false}>
-                                            <View style={styles.quesView}>
-                                                <Text style={styles.quesHead}>Question: {page}</Text>
-                                                <Text style={styles.quesQuestion}>{ques?.question}</Text>
-                                            </View>
+
                                             {
-                                                ques?.checkin_question_inputs?.map((val, ind) => {
-                                                    let opt = val?.options != null ? JSON.parse(val?.options) : null;
-                                                    let type = val?.input_type;
-                                                    let place = val?.placeholder;
-                                                    return (
-                                                        <View key={ind}>
-                                                            {
-                                                                type === "multi_select" ? (
-                                                                    <>
-                                                                        {
-                                                                            opt.map((v, i) => {
-                                                                                return (
-                                                                                    <View
-                                                                                        key={i}
-                                                                                        style={{ width: "80%", alignSelf: "center" }}
-                                                                                    >
-                                                                                        <BouncyCheckbox
-                                                                                            size={20}
-                                                                                            fillColor={COLORS.mehron}
-                                                                                            unfillColor={COLORS.white}
-                                                                                            // disableBuiltInState
-                                                                                            // isChecked={isItemIsSelected(val?.id, v?.question_value)}
-                                                                                            text={v?.question_label}
-                                                                                            style={{
-                                                                                                marginTop: 10,
-                                                                                                width: "100%"
-                                                                                            }}
-                                                                                            innerIconStyle={{ borderWidth: 2 }}
-                                                                                            onPress={() => {
-                                                                                                setingVar(
-                                                                                                    val?.id,
-                                                                                                    v?.question_value,
-                                                                                                    type
-                                                                                                );
-                                                                                            }}
-                                                                                            textStyle={{
-                                                                                                textDecorationLine: "none"
-                                                                                            }}
-                                                                                        />
-                                                                                    </View>
-                                                                                );
-                                                                            })
-                                                                        }
-                                                                    </>
-                                                                ) : (
-                                                                    null
-                                                                )
-                                                            }
-                                                            {
-                                                                type === "select" ? (
-                                                                    <>
-                                                                        {
-                                                                            opt.map((v, i) => {
-                                                                                return (
-                                                                                    <View
-                                                                                        key={i}
-                                                                                        style={{ width: "80%", alignSelf: "center" }}
-                                                                                    >
-                                                                                        <BouncyCheckbox
-                                                                                            size={20}
-                                                                                            fillColor={COLORS.mehron}
-                                                                                            unfillColor={COLORS.white}
-                                                                                            // disableBuiltInState
-                                                                                            // isChecked={isItemIsSelected(val?.id, v?.question_value)}
-                                                                                            text={v?.question_label}
-                                                                                            style={{
-                                                                                                marginTop: 10,
-                                                                                                width: "100%"
-                                                                                            }}
-                                                                                            innerIconStyle={{ borderWidth: 2 }}
-                                                                                            onPress={() => {
-                                                                                                setingVar(
-                                                                                                    val?.id,
-                                                                                                    v?.question_value,
-                                                                                                    type
-                                                                                                );
-                                                                                            }}
-                                                                                            textStyle={{
-                                                                                                textDecorationLine: "none"
-                                                                                            }}
-                                                                                        />
-                                                                                    </View>
-                                                                                );
-                                                                            })
-                                                                        }
-                                                                    </>
-                                                                ) : (
-                                                                    null
-                                                                )
-                                                            }
-                                                            {
-                                                                type === "image" ? (
-                                                                    <>
-                                                                        <TouchableOpacity
-                                                                            style={styles.imageUpload}
-                                                                            onPress={() => handleChoosePhoto(val?.id, ind)}
-                                                                        >
-                                                                            {
-                                                                                indPhoto?.length == 0 ? (
-                                                                                    <Image source={upload} style={[styles.upload, { tintColor: COLORS.offWhite }]} />
-                                                                                ) : (
-                                                                                    <>
-                                                                                        {
-                                                                                            indPhoto.map((v, i) => {
-                                                                                                return (
-                                                                                                    <View key={i}>
-                                                                                                        {
-                                                                                                            ind == v.ind ? (
-                                                                                                                <Image source={{ uri: v?.abc?.uri }} style={styles.upload} />
-                                                                                                            ) : null
-                                                                                                        }
-                                                                                                    </View>
-                                                                                                )
-                                                                                            })
-                                                                                        }
-                                                                                    </>
-                                                                                )
-                                                                            }
-                                                                        </TouchableOpacity>
-                                                                    </>
-                                                                ) : (
-                                                                    null
-                                                                )
-                                                            }
-                                                            {
-                                                                type === "number" ? (
-                                                                    <>
-                                                                        <View style={styles.inputStyle}>
-                                                                            <TextInput
-                                                                                style={styles.inputField}
-                                                                                value={ansId}
-                                                                                onChangeText={(v) => setingVar(val?.id, v, type)}
-                                                                                placeholder={place}
-                                                                            />
-                                                                        </View>
-                                                                    </>
-                                                                ) : (
-                                                                    null
-                                                                )
-                                                            }
+                                                newUser == 1 ? (
+                                                    <>
+                                                        <Text style={styles.programText}>
+                                                            No Program is Assigned
+                                                        </Text>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <View style={styles.quesView}>
+                                                            <Text style={styles.quesHead}>Question: {page}</Text>
+                                                            <Text style={styles.quesQuestion}>{ques?.question}</Text>
                                                         </View>
-                                                    );
-                                                })
+                                                        {
+                                                            ques?.checkin_question_inputs?.map((val, ind) => {
+                                                                let opt = val?.options != null ? JSON.parse(val?.options) : null;
+                                                                let type = val?.input_type;
+                                                                let place = val?.placeholder;
+                                                                return (
+                                                                    <View key={ind}>
+                                                                        {
+                                                                            type === "multi_select" ? (
+                                                                                <>
+                                                                                    {
+                                                                                        opt.map((v, i) => {
+                                                                                            return (
+                                                                                                <View
+                                                                                                    key={i}
+                                                                                                    style={{ width: "80%", alignSelf: "center" }}
+                                                                                                >
+                                                                                                    <BouncyCheckbox
+                                                                                                        size={20}
+                                                                                                        fillColor={COLORS.mehron}
+                                                                                                        unfillColor={COLORS.white}
+                                                                                                        // disableBuiltInState
+                                                                                                        // isChecked={isItemIsSelected(val?.id, v?.question_value)}
+                                                                                                        text={v?.question_label}
+                                                                                                        style={{
+                                                                                                            marginTop: 10,
+                                                                                                            width: "100%"
+                                                                                                        }}
+                                                                                                        innerIconStyle={{ borderWidth: 2 }}
+                                                                                                        onPress={() => {
+                                                                                                            setingVar(
+                                                                                                                val?.id,
+                                                                                                                v?.question_value,
+                                                                                                                type
+                                                                                                            );
+                                                                                                        }}
+                                                                                                        textStyle={{
+                                                                                                            textDecorationLine: "none"
+                                                                                                        }}
+                                                                                                    />
+                                                                                                </View>
+                                                                                            );
+                                                                                        })
+                                                                                    }
+                                                                                </>
+                                                                            ) : (
+                                                                                null
+                                                                            )
+                                                                        }
+                                                                        {
+                                                                            type === "select" ? (
+                                                                                <>
+                                                                                    {
+                                                                                        opt.map((v, i) => {
+                                                                                            return (
+                                                                                                <View
+                                                                                                    key={i}
+                                                                                                    style={{ width: "80%", alignSelf: "center" }}
+                                                                                                >
+                                                                                                    <BouncyCheckbox
+                                                                                                        size={20}
+                                                                                                        fillColor={COLORS.mehron}
+                                                                                                        unfillColor={COLORS.white}
+                                                                                                        // disableBuiltInState
+                                                                                                        // isChecked={isItemIsSelected(val?.id, v?.question_value)}
+                                                                                                        text={v?.question_label}
+                                                                                                        style={{
+                                                                                                            marginTop: 10,
+                                                                                                            width: "100%"
+                                                                                                        }}
+                                                                                                        innerIconStyle={{ borderWidth: 2 }}
+                                                                                                        onPress={() => {
+                                                                                                            setingVar(
+                                                                                                                val?.id,
+                                                                                                                v?.question_value,
+                                                                                                                type
+                                                                                                            );
+                                                                                                        }}
+                                                                                                        textStyle={{
+                                                                                                            textDecorationLine: "none"
+                                                                                                        }}
+                                                                                                    />
+                                                                                                </View>
+                                                                                            );
+                                                                                        })
+                                                                                    }
+                                                                                </>
+                                                                            ) : (
+                                                                                null
+                                                                            )
+                                                                        }
+                                                                        {
+                                                                            type === "image" ? (
+                                                                                <>
+                                                                                    <TouchableOpacity
+                                                                                        style={styles.imageUpload}
+                                                                                        onPress={() => handleChoosePhoto(val?.id, ind)}
+                                                                                    >
+                                                                                        {
+                                                                                            indPhoto?.length == 0 ? (
+                                                                                                <Image source={upload} style={[styles.upload, { tintColor: COLORS.offWhite }]} />
+                                                                                            ) : (
+                                                                                                <>
+                                                                                                    {
+                                                                                                        indPhoto.map((v, i) => {
+                                                                                                            return (
+                                                                                                                <View key={i}>
+                                                                                                                    {
+                                                                                                                        ind == v.ind ? (
+                                                                                                                            <Image source={{ uri: v?.abc?.uri }} style={styles.upload} />
+                                                                                                                        ) : null
+                                                                                                                    }
+                                                                                                                </View>
+                                                                                                            )
+                                                                                                        })
+                                                                                                    }
+                                                                                                </>
+                                                                                            )
+                                                                                        }
+                                                                                    </TouchableOpacity>
+                                                                                </>
+                                                                            ) : (
+                                                                                null
+                                                                            )
+                                                                        }
+                                                                        {
+                                                                            type === "number" ? (
+                                                                                <>
+                                                                                    <View style={styles.inputStyle}>
+                                                                                        <TextInput
+                                                                                            style={styles.inputField}
+                                                                                            value={ansId}
+                                                                                            onChangeText={(v) => setingVar(val?.id, v, type)}
+                                                                                            placeholder={place}
+                                                                                        />
+                                                                                    </View>
+                                                                                </>
+                                                                            ) : (
+                                                                                null
+                                                                            )
+                                                                        }
+                                                                    </View>
+                                                                );
+                                                            })
+                                                        }
+                                                        <TouchableOpacity style={styles.sendAns} onPress={send}>
+                                                            <Text style={styles.sendText}>Send</Text>
+                                                        </TouchableOpacity>
+                                                    </>
+                                                )
                                             }
-                                            <TouchableOpacity style={styles.sendAns} onPress={send}>
-                                                <Text style={{ alignSelf: "center" }}>Send</Text>
-                                            </TouchableOpacity>
                                         </ScrollView>
                                     </>
                                 )

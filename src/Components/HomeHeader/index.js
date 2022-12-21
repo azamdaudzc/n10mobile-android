@@ -3,15 +3,15 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import COLORS from "../../Constants/COLORS";
 import { bell, downArray } from "../../Constants/Images/index";
-import { LoginUser, LogOut, TokenId, UserDetail } from "../../Store/Reducer/AuthReducer";
+import { LogOut } from "../../Store/Reducer/AuthReducer";
 
 const HomeHeader = () => {
 
     const dispatch = useDispatch();
 
     const logout = () => {
-        dispatch(LogOut([]))
-    }
+        dispatch(LogOut([]));
+    };
 
     return (
         <>

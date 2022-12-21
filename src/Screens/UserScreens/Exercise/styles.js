@@ -2,6 +2,12 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    program: {
+        color: COLORS.black,
+        alignSelf: "center",
+        fontSize: 20,
+        marginTop: "70%"
+    },
     loader: {
         marginTop: "75%"
     },

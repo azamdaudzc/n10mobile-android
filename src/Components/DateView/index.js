@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -6,12 +6,31 @@ import {
     StyleSheet
 } from "react-native";
 import COLORS from "../../Constants/COLORS";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DateView = ({ title, type, setQues }) => {
+
+    const [startDate, setStartDate] = useState();
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('weekDate');
+            return setStartDate(jsonValue != null ? JSON.parse(jsonValue) : null);
+        } catch (e) {
+            console.log("get Date error", e);
+        };
+    };
 
     const back = () => {
         setQues((prev) => prev - 1);
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getData();
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
@@ -19,15 +38,23 @@ const DateView = ({ title, type, setQues }) => {
                 <View style={{ alignSelf: "center" }}>
                     {
                         type === 1 ? (
-                            <TouchableOpacity style={styles.backTouch} onPress={back}>
+                            <TouchableOpacity onPress={back}>
                                 <Text style={styles.back1}>BACK</Text>
                             </TouchableOpacity>
                         ) : null
                     }
                 </View>
-                <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.week}>{title}</Text>
-                </View>
+                {
+                    title !== undefined ? (
+                        <View style={{ alignSelf: "center" }}>
+                            <Text style={styles.week}>{title}</Text>
+                        </View>
+                    ) : (
+                        <View style={{ alignSelf: "center" }}>
+                            <Text style={styles.week}>WEEK OF {startDate?.start} - {startDate?.end}</Text>
+                        </View>
+                    )
+                }
                 <View />
             </View>
         </>
@@ -37,10 +64,6 @@ const DateView = ({ title, type, setQues }) => {
 export default DateView;
 
 const styles = StyleSheet.create({
-    backTouch: {
-        // alignSelf: "center"
-        // justifyContent: "flex-start"
-    },
     back1: {
         color: COLORS.white,
         alignSelf: "center",
@@ -49,7 +72,6 @@ const styles = StyleSheet.create({
     week: {
         color: COLORS.white,
         alignSelf: "center",
-        // justifyContent: "center",
         marginLeft: -25
     },
     container: {

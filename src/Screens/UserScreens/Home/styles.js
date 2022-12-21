@@ -2,6 +2,12 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../Constants/COLORS";
 
 const styles = StyleSheet.create({
+    programText: {
+        color: COLORS.black,
+        alignSelf: "center",
+        marginTop: "50%",
+        fontSize: 20
+    },
     nutritionBox: {
         flexDirection: "row",
         justifyContent: "space-evenly",

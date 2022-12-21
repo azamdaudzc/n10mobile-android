@@ -50,7 +50,8 @@ const SignupUser = async (
     num,
     gen,
     athleticType,
-    navigation
+    navigation,
+    setLoad
 ) => {
     let data = {
         first_name: fName,
@@ -67,14 +68,17 @@ const SignupUser = async (
     await API.post(`auth/register`, data)
         .then((e) => {
             if (e?.data?.status === "Success") {
-                alert("Account created successfully");
+                setLoad(false);
                 navigation.navigate("LoginScreen");
+                alert("SingUp Successful");
             } else {
                 alert("Email is already taken");
             };
         })
         .catch((err) => {
-            console.log("SignupUser error", err);
+            console.log("SignupUser error", err?.response?.data?.message);
+            setLoad(false);
+            alert("Something went wrong");
         });
 };
 

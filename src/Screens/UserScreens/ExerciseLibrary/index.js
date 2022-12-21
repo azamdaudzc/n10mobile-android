@@ -47,13 +47,13 @@ const ExerciseLibrary = () => {
     useEffect(() => {
         const emp = exercise ? exercise?.filter(item => item?.name?.toLowerCase().includes(filterData.toLowerCase())) : exercise
         setFilteredResults(emp);
-    }, [filterData])
+    }, [filterData]);
 
     return (
         <>
             <View style={styles.container}>
                 <UserHeader type={1} />
-                <DateView title={"WEEK OF 24 APRIL 2022 - 07 MAY 2022"} />
+                <DateView />
                 <View style={styles.nutrition}>
                     <Text style={{ color: COLORS.white, alignSelf: "center" }}>
                         EXERCISE LIBRARY

@@ -36,10 +36,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignSelf: "center",
-        // marginTop: "15%",
-        position: "absolute",
         borderRadius: 40,
-        bottom: 40
+        marginTop: 40,
+        marginBottom: 40
     },
     logout: {
         resizeMode: "contain",

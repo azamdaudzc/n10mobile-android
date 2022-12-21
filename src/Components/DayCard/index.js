@@ -1,8 +1,6 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import COLORS from '../../Constants/COLORS';
-import DayData from '../../Constants/DayData';
-import { leftArrow } from '../../Constants/Images';
 
 const DayCard = ({ day }) => {
     return (
@@ -23,10 +21,6 @@ const DayCard = ({ day }) => {
                         day?.status !== "Rest Day" ? (
                             <>
                                 <Text style={styles.viewText}>{day?.status == `start` ? "Start" : "View"}</Text>
-                                {/* <Image
-                                    source={leftArrow}
-                                    style={styles.leftArrow}
-                                /> */}
                             </>
                         ) : null
                     }

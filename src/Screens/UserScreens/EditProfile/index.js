@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Image,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { back, check, eye, profile } from '../../../Constants/Images';
+import { back, check, eye } from '../../../Constants/Images';
 import styles from './styles';
 import DropDownPicker from "react-native-dropdown-picker";
 import GenderData from '../../../Constants/GenderData';
@@ -148,7 +156,7 @@ const EditProfile = () => {
                                             style={styles.nameInput}
                                             value={num}
                                             onChangeText={setNum}
-                                            placeholder={"Phone Number"}
+                                            placeholder={AuthState?.UserDetail?.phone?.toString()}
                                             placeholderTextColor={COLORS.black}
                                         />
                                     </View>
@@ -158,6 +166,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={age}
                                                 onChangeText={setAge}
+                                                placeholder={AuthState?.UserDetail?.age?.toString()}
                                                 placeholderTextColor={COLORS.black}
                                             />
                                         </View>
@@ -166,6 +175,7 @@ const EditProfile = () => {
                                                 style={styles.nameInput}
                                                 value={height}
                                                 onChangeText={setHeight}
+                                                placeholder={AuthState?.UserDetail?.height?.toString()}
                                                 placeholderTextColor={COLORS.black}
                                             />
                                         </View>
@@ -208,7 +218,6 @@ const EditProfile = () => {
                                                 }}
                                                 setOpen={setOpen2}
                                                 setValue={setType}
-                                                // setItems={setData}
                                                 disableBorderRadius={false}
                                                 placeholder={AuthState?.UserDetail?.athletic_type}
                                                 placeholderStyle={{

@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     line: {
         borderBottomWidth: 2,
         borderColor: COLORS.mehron,
-        width: "30%",
+        width: "45%",
         marginTop: 8,
         alignSelf: "center"
     },

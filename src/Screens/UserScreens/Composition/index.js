@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+    ActivityIndicator,
+    FlatList,
+    Image,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import styles from "./styles";
-import HomeHeader from "../../../Components/HomeHeader";
-import UserHeader from "../../../Components/UserHeader";
 import COLORS from "../../../Constants/COLORS";
-import { getNotification, markNotification } from "../../../Store/Actions/UserData";
+import {
+    getNotification,
+    markNotification
+} from "../../../Store/Actions/UserData";
 import { useSelector } from "react-redux";
 import NotificationCard from "../../../Components/NotificationCard";
 import { doubleTick } from "../../../Constants/Images";

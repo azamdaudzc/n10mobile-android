@@ -1,9 +1,13 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+    Image,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { N10logo, welcomeImg } from "../../../Constants/Images";
 import styles from "./styles";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Welcome = () => {
 

@@ -11,7 +11,15 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import COLORS from "../../../Constants/COLORS";
-import { check, eye, facebook, google, loginBg, N10logo, twitter } from "../../../Constants/Images";
+import {
+    check,
+    eye,
+    facebook,
+    google,
+    loginBg,
+    N10logo,
+    twitter
+} from "../../../Constants/Images";
 import { LoginAPI } from "../../../Store/Actions/AuthData";
 import styles from "./styles";
 

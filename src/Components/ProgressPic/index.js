@@ -19,7 +19,5 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         margin: 6
-        // justifyContent: "center",
-        // alignSelf: "space-between"
     }
 });

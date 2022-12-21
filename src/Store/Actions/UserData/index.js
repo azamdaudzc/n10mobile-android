@@ -1,7 +1,7 @@
 import API from "../../../Constants/AxiosAPI";
 import { UserDetail } from "../../Reducer/AuthReducer";
 
-const checkInQues = async (setQues, token, setLoad) => {
+const checkInQues = async (setQues, token, setLoad, setNewUser) => {
     await API.get(`get/checkin-questions`, {
         headers: {
             Authorization: `Bearer ${token}`
@@ -10,6 +10,10 @@ const checkInQues = async (setQues, token, setLoad) => {
         if (e?.status === 200) {
             setQues(e?.data);
             setLoad(false);
+        };
+        if (e?.data?.error == "No Program Assigned") {
+            setLoad(false);
+            setNewUser(1);
         };
     }).catch((err) => {
         console.log("checkInQues error", err);
@@ -49,13 +53,16 @@ const sendAns = async (formData, token, setLoad, setQues) => {
     });
 };
 
-const getProgramWeek = async (setProgramWeek, token) => {
+const getProgramWeek = async (setProgramWeek, setQues, token) => {
     await API.get(`get/user/program/weeks`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
         setProgramWeek(e?.data);
+        if (e?.data?.msg == "user has no programs") {
+            setQues(4);
+        };
     }).catch(err => {
         console.log("getUseProgram error", err);
     });
@@ -223,13 +230,17 @@ const warmUpInfo = async (id, setWarmInfo, token) => {
     });
 };
 
-const dashboard = async (setDash, token) => {
+const dashboard = async (setDash, setLoad, setNewUser, token) => {
     await API.get(`fetch/dashboard`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     }).then(e => {
+        setLoad(false);
         setDash(e?.data);
+        if (e?.data?.error == "no program assigned") {
+            setNewUser(true);
+        };
     }).catch((err) => {
         console.log("dashboard error", err);
     });
